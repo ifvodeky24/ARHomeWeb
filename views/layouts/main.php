@@ -18,7 +18,7 @@ BackAsset::register($this);
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
@@ -416,10 +416,7 @@ BackAsset::register($this);
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <div class="pull-right hidden-xs">
-      <b>Version</b> 2.4.0
-    </div>
-      <strong>Copyright &copy; AR-Home<?= date('Y') ?> </strong>
+      <strong>Copyright &copy; AR-Home &nbsp; <?=date('Y') ?> </strong>
   </footer>
 
   <!-- Control Sidebar -->
@@ -616,16 +613,14 @@ BackAsset::register($this);
        immediately after the control sidebar -->
   <div class="control-sidebar-bg"></div>
 </div>
+<!-- ./wrapper -->
 
-<footer class="footer">
-    <div class="container">
-        <p class="pull-left">&copy; AR-Home<?= date('Y') ?></p>
-    </div>
-</footer>
-
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
   $.widget.bridge('uibutton', $.ui.button);
 </script>
+<!-- Bootstrap 3.3.7 -->
+
 <?php $this->endBody() ?>
 </body>
 </html>

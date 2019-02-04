@@ -143,6 +143,4 @@ class PemesananKontrakanController extends Controller
     return $response;
 
   }
-
-
 }

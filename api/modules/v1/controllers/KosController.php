@@ -13,17 +13,23 @@ class KosController extends Controller
 	GET
 	Fungsi untuk mendapatkan semua data-data kos
 	*/
-	public function actionGetAll(){
+	public function actionGetAllTerdekat($myLat, $myLng, $jarak){
 		Yii::$app->response->format = Response::FORMAT_JSON;
 
 		$response = null;
 
 		if (Yii::$app->request->isGet){
 
-			// select * from tb_kos
-			$kos = Kos::find()->all();
+			$sql = "SELECT dt_kos.id_kos, dt_kos.nama, dt_kos.deskripsi, dt_kos.foto, dt_kos.waktu_post, dt_kos.id_pemilik, dt_kos.latitude, dt_kos.longitude, dt_kos.altitude, dt_kos.harga, dt_kos.rating, dt_kos.status, dt_kos.stok_kamar, dt_kos.jenis_kos,
+                    (((acos(sin(('$myLat'*pi()/180))
+                    * sin((`latitude`*pi()/180))+cos(('$myLat'*pi()/180))
+                    * cos((`latitude`*pi()/180)) * cos((('$myLng'-`longitude`)
+                    * pi()/180))))*180/pi())*60*1.1515*1.609344)
+                    as jarak FROM `dt_kos`
+                    HAVING jarak <= $jarak AND dt_kos.status = 'tersedia'
+                    ORDER BY jarak ASC";
 
-			$response['master'] = $kos;
+			$response['master'] = Yii::$app->db->createCommand($sql)->queryAll();
 		}
 
 		return $response;
@@ -94,7 +100,7 @@ class KosController extends Controller
       $kos->stok_kamar= $stok_kamar;
       $kos->jenis_kos= $jenis_kos;
 
-      if($kos->save()){
+      if($kos->save(false)){
         //jika data berhasil disimpan
         $response['code'] = 1;
 				$response['message'] = "Tambah Kos berhasil";
