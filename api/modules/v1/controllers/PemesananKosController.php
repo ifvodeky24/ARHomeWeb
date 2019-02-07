@@ -10,9 +10,10 @@ use yii\web\Response;
 
 class PemesananKosController extends Controller
 {
+
   /*
 	GET
-	Fungsi untuk mendapatkan semua data-data pesanan
+	Fungsi untuk mendapatkan semua data pesanan kos
 	*/
 	public function actionGetAll(){
 		Yii::$app->response->format = Response::FORMAT_JSON;
@@ -21,7 +22,7 @@ class PemesananKosController extends Controller
 
 		if (Yii::$app->request->isGet){
 
-			// select * from tb_pemesanan_kontrakan
+			// select * from tb_pemesanan_kos
 			$pemesanan_kos = PemesananKos::find()->all();
 
 			$response['master'] = $pemesanan_kos;
@@ -34,7 +35,6 @@ class PemesananKosController extends Controller
 	GET
 	Fungsi untuk mendapatkan data pemesanan kos filter by id_pemesanan_kos
 	*/
-
   public function actionById ($id_pemesanan_kos){
     Yii::$app->response->format = Response::FORMAT_JSON;
 
@@ -56,7 +56,6 @@ class PemesananKosController extends Controller
 	GET
 	Fungsi untuk mendapatkan data pemesanan kos filter by id_pemilik dan status
 	*/
-
   public function actionGetAllByPemilik($id_pemilik, $status){
     Yii::$app->response->format = Response::FORMAT_JSON;
 
@@ -86,7 +85,6 @@ class PemesananKosController extends Controller
 	GET
 	Fungsi untuk melihat history data pemesanan kos filter by id_pengguna dan status
 	*/
-
   public function actionGetAllByPengguna($id_pengguna, $status){
     Yii::$app->response->format = Response::FORMAT_JSON;
 
@@ -115,7 +113,6 @@ class PemesananKosController extends Controller
   CREATE
   Fungsi untuk menambah pemesanan kos
   */
-
   public function actionTambahPemesananKos(){
     Yii::$app->response->format = Response::FORMAT_JSON;
 
@@ -156,8 +153,7 @@ class PemesananKosController extends Controller
   UPDATE
   Fungsi untuk update data status kos dari booking menjadi dalam pemesanan
   */
-
-  public function actionUpdateStatusPemesananKos() {
+  public function actionUpdateStatusPemesananKosDalamPemesanan() {
     Yii::$app->response->format = Response::FORMAT_JSON;
 
     $response = null;
@@ -174,11 +170,7 @@ class PemesananKosController extends Controller
 
       if (isset($pemesanan_kos)) {
         // code...
-        // $pemesanan_kos->id_pengguna= $id_pengguna;
-        // $pemesanan_kos->id_kos= $id_kos;
         $pemesanan_kos->status= $status;
-        // $pemesanan_kos->review= $review;
-        // $pemesanan_kos->rating= $rating;
 
         if ($pemesanan_kos->update(false)) {
 					//lakukan decrement stok_kamar pada kos
@@ -189,11 +181,11 @@ class PemesananKosController extends Controller
 									$kos->stok_kamar -= 1;
 									if ($kos->update(false)) {
 										$response['code'] = 1;
-					  				$response['message'] = "Update pemesanan dan kos berhasil";
+					  				$response['message'] = "Update status pemesanan kos berhasil menjadi dalam pemesanan";
 					  				$response['data'] = $pemesanan_kos;
 									}else {
 										$response['code'] = 0;
-					  				$response['message'] = "Update pemesanan dan kos gagal";
+					  				$response['message'] = "Update status pemesanan kos gagal menjadi dalam pemesanan";
 					  				$response['data'] = null;
 									}
           // jika data berhasil diupdate
@@ -210,15 +202,13 @@ class PemesananKosController extends Controller
       }
     }
     return $response;
-
   }
 
 	/*
   UPDATE
-  Fungsi untuk update data status kos dari booking menjadi dalam pemesanan
+  Fungsi untuk update data status kos dari dalam pemesanan menjadi selesai
   */
-
-  public function actionUpdateStatusPemesananKos() {
+  public function actionUpdateStatusPemesananKosSelesai() {
     Yii::$app->response->format = Response::FORMAT_JSON;
 
     $response = null;
@@ -227,7 +217,9 @@ class PemesananKosController extends Controller
       $data = Yii::$app->request->Post();
 
       $id_pemesanan_kos= $data['id_pemesanan_kos'];
-      $status = $data['status'];
+			$status = $data['status'];
+      $review = $data['review'];
+      $rating = $data['rating'];
 
       $pemesanan_kos = PemesananKos::find()
                       ->where(['id_pemesanan_kos' => $id_pemesanan_kos])
@@ -235,26 +227,24 @@ class PemesananKosController extends Controller
 
       if (isset($pemesanan_kos)) {
         // code...
-        // $pemesanan_kos->id_pengguna= $id_pengguna;
-        // $pemesanan_kos->id_kos= $id_kos;
         $pemesanan_kos->status= $status;
-        // $pemesanan_kos->review= $review;
-        // $pemesanan_kos->rating= $rating;
+        $pemesanan_kos->review= $review;
+        $pemesanan_kos->rating= $rating;
 
         if ($pemesanan_kos->update(false)) {
-					//lakukan decrement stok_kamar pada kos
+					//lakukan increment stok_kamar pada kos
 					$kos = Kos::find()
 									->where(['id_kos' => $pemesanan_kos->id_kos])
 									->one();
 
-									$kos->stok_kamar -= 1;
+									$kos->stok_kamar += 1;
 									if ($kos->update(false)) {
 										$response['code'] = 1;
-					  				$response['message'] = "Update pemesanan dan kos berhasil";
+					  				$response['message'] = "Update pemesanan dan kos berhasil menjadi selesai";
 					  				$response['data'] = $pemesanan_kos;
 									}else {
 										$response['code'] = 0;
-					  				$response['message'] = "Update pemesanan dan kos gagal";
+					  				$response['message'] = "Update pemesanan dan kos gagal menjadi selesai";
 					  				$response['data'] = null;
 									}
           // jika data berhasil diupdate
@@ -273,6 +263,4 @@ class PemesananKosController extends Controller
     return $response;
 
   }
-
-
 }

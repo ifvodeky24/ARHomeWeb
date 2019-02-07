@@ -404,12 +404,7 @@ BackAsset::register($this);
 
     <!-- Main content -->
     <section class="content">
-      <!-- Small boxes (Stat box) -->
-      <div class="row">
-          <div class="container">
-            <?php echo $content; ?>
-          </div>
-      </div>
+    <?= $content ?>
 
     </section>
     <!-- /.content -->

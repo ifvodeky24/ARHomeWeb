@@ -36,7 +36,6 @@ class AdminController extends Controller
 	GET
 	Fungsi untuk mendapatkan data admin filter by id_admin
 	*/
-
   public function actionById ($id_admin){
     Yii::$app->response->format = Response::FORMAT_JSON;
 
@@ -58,7 +57,6 @@ class AdminController extends Controller
 	POST
 	Fungsi untuk login sebagai admin
 	*/
-
 	public function actionLogin(){
 		Yii::$app->response->format = Response::FORMAT_JSON;
 
@@ -100,7 +98,6 @@ class AdminController extends Controller
   CREATE
   Fungsi untuk tambah admin
   */
-
   public function actionTambahAdmin(){
     Yii::$app->response->format = Response::FORMAT_JSON;
 
@@ -135,7 +132,6 @@ class AdminController extends Controller
   UPDATE
   Fungsi untuk update data Admin
   */
-
   public function actionUpdateAdmin() {
     Yii::$app->response->format = Response::FORMAT_JSON;
 
@@ -181,7 +177,6 @@ class AdminController extends Controller
   DELETE
   Fungsi untuk delete data admin
   */
-
     public function actionDelete(){
       Yii::$app->response->format = Response::FORMAT_JSON;
 

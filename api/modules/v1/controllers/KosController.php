@@ -9,9 +9,30 @@ use yii\web\Response;
 
 class KosController extends Controller
 {
+
+	/*
+	GET
+	Fungsi untuk mendapatkan semua data kos
+	*/
+	public function actionGetAll(){
+		Yii::$app->response->format = Response::FORMAT_JSON;
+
+		$response = null;
+
+		if (Yii::$app->request->isGet){
+
+			// select * from tb_kos
+			$kos = Kos::find()->all();
+
+			$response['master'] = $kos;
+		}
+
+		return $response;
+	}
+
   /*
 	GET
-	Fungsi untuk mendapatkan semua data-data kos
+	Fungsi untuk mendapatkan semua data-data kos yang terdekat dari lokasi saat ini
 	*/
 	public function actionGetAllTerdekat($myLat, $myLng, $jarak){
 		Yii::$app->response->format = Response::FORMAT_JSON;
@@ -37,9 +58,8 @@ class KosController extends Controller
 
   /*
 	GET
-	Fungsi untuk mendapatkan data kos filter by id_kos
+	Fungsi untuk mendapatkan data kos di filter by id_kos
 	*/
-
   public function actionById ($id_kos){
     Yii::$app->response->format = Response::FORMAT_JSON;
 
@@ -59,9 +79,8 @@ class KosController extends Controller
 
   /*
   CREATE
-  Fungsi untuk menambah kos
+  Fungsi untuk menambah kos terbaru
   */
-
   public function actionTambahKos(){
     Yii::$app->response->format = Response::FORMAT_JSON;
 
@@ -116,9 +135,8 @@ class KosController extends Controller
 
   /*
   UPDATE
-  Fungsi untuk update data kos
+  Fungsi untuk update data kos yang sudah ada
   */
-
   public function actionUpdateKos() {
     Yii::$app->response->format = Response::FORMAT_JSON;
 
@@ -184,9 +202,8 @@ class KosController extends Controller
 
   /*
   DELETE
-  Fungsi untuk delete kos
+  Fungsi untuk menghapus kos
   */
-
     public function actionDelete(){
       Yii::$app->response->format = Response::FORMAT_JSON;
 

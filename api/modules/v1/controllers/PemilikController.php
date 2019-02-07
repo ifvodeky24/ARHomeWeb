@@ -33,7 +33,6 @@ class PemilikController extends Controller
 	GET
 	Fungsi untuk mendapatkan data pemilik filter by id_pemilik
 	*/
-
   public function actionById ($id_pemilik){
     Yii::$app->response->format = Response::FORMAT_JSON;
 
@@ -55,7 +54,6 @@ class PemilikController extends Controller
 	POST
 	Fungsi untuk login sebagai pemilik
 	*/
-
 	public function actionLogin(){
 		Yii::$app->response->format = Response::FORMAT_JSON;
 
@@ -97,7 +95,6 @@ class PemilikController extends Controller
   CREATE
   Fungsi untuk register sebagai pemilik
   */
-
   public function actionRegister(){
     Yii::$app->response->format = Response::FORMAT_JSON;
 
@@ -141,7 +138,6 @@ class PemilikController extends Controller
   UPDATE
   Fungsi untuk update data Pemilik
   */
-
   public function actionUpdatePemilik() {
     Yii::$app->response->format = Response::FORMAT_JSON;
 
@@ -195,7 +191,6 @@ class PemilikController extends Controller
   DELETE
   Fungsi untuk delete data pemilik
   */
-
     public function actionDelete(){
       Yii::$app->response->format = Response::FORMAT_JSON;
 

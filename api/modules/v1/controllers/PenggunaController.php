@@ -9,7 +9,7 @@ use yii\web\Response;
 
 class PenggunaController extends Controller
 {
-    
+
 	/*
 	GET
 	Fungsi untuk mendapatkan semua data-data pengguna
@@ -34,7 +34,6 @@ class PenggunaController extends Controller
 	GET
 	Fungsi untuk mendapatkan data pengguna filter by id_pengguna
 	*/
-
   public function actionById ($id_pengguna){
     Yii::$app->response->format = Response::FORMAT_JSON;
 
@@ -56,7 +55,6 @@ class PenggunaController extends Controller
 	POST
 	Fungsi untuk login sebagai pengguna
 	*/
-
 	public function actionLogin(){
 		Yii::$app->response->format = Response::FORMAT_JSON;
 
@@ -98,7 +96,6 @@ class PenggunaController extends Controller
   CREATE
   Fungsi untuk register sebagai Pengguna
   */
-
   public function actionRegister(){
     Yii::$app->response->format = Response::FORMAT_JSON;
 
@@ -142,7 +139,6 @@ class PenggunaController extends Controller
   UPDATE
   Fungsi untuk update data Pengguna
   */
-
   public function actionUpdatePengguna() {
     Yii::$app->response->format = Response::FORMAT_JSON;
 
@@ -196,7 +192,6 @@ class PenggunaController extends Controller
 DELETE
 Fungsi untuk delete sebagai Pengguna
 */
-
   public function actionDelete(){
     Yii::$app->response->format = Response::FORMAT_JSON;
 
