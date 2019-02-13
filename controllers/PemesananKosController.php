@@ -33,16 +33,31 @@ class PemesananKosController extends Controller
      * Lists all PemesananKos models.
      * @return mixed
      */
+    // public function actionIndex()
+    // {
+    //     $searchModel = new PemesananKosSearch();
+    //     $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+    //
+    //     return $this->render('index', [
+    //         'searchModel' => $searchModel,
+    //         'dataProvider' => $dataProvider,
+    //     ]);
+    // }
     public function actionIndex()
     {
-        $searchModel = new PemesananKosSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
+    $model= (new \yii\db\Query())
+    ->select('*')
+    ->from('tb_pemesanan_kos')
+    ->orderBy('id_kos ASC')
+    ->all();
+
+    return $this->render('index', [
+    // 'dataProvider' => $dataProvider,
+    'model'=>$model,
+]);
+
+}
 
     /**
      * Displays a single PemesananKos model.

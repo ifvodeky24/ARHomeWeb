@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Kos */
 
-$this->title = 'Create Kos';
+$this->title = 'Tambah Kos';
 $this->params['breadcrumbs'][] = ['label' => 'Kos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

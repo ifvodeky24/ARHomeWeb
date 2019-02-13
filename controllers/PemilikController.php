@@ -33,16 +33,31 @@ class PemilikController extends Controller
      * Lists all Pemilik models.
      * @return mixed
      */
+    // public function actionIndex()
+    // {
+    //     $searchModel = new PemilikSearch();
+    //     $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+    //
+    //     return $this->render('index', [
+    //         'searchModel' => $searchModel,
+    //         'dataProvider' => $dataProvider,
+    //     ]);
+    // }
     public function actionIndex()
     {
-        $searchModel = new PemilikSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
+    $model= (new \yii\db\Query())
+    ->select('*')
+    ->from('tb_pemilik')
+    ->orderBy('id_pemilik ASC')
+    ->all();
+
+    return $this->render('index', [
+    // 'dataProvider' => $dataProvider,
+    'model'=>$model,
+]);
+
+}
 
     /**
      * Displays a single Pemilik model.

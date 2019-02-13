@@ -33,16 +33,31 @@ class KontrakanController extends Controller
      * Lists all Kontrakan models.
      * @return mixed
      */
+    // public function actionIndex()
+    // {
+    //     $searchModel = new KontrakanSearch();
+    //     $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+    //
+    //     return $this->render('index', [
+    //         'searchModel' => $searchModel,
+    //         'dataProvider' => $dataProvider,
+    //     ]);
+    // }
     public function actionIndex()
     {
-        $searchModel = new KontrakanSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
+    $model= (new \yii\db\Query())
+    ->select('*')
+    ->from('dt_kontrakan')
+    ->orderBy('id_kontrakan ASC')
+    ->all();
+
+    return $this->render('index', [
+    // 'dataProvider' => $dataProvider,
+    'model'=>$model,
+]);
+
+}
 
     /**
      * Displays a single Kontrakan model.

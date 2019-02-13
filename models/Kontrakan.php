@@ -85,6 +85,6 @@ class Kontrakan extends \yii\db\ActiveRecord
      */
     public function getTbPemesananKontrakans()
     {
-        return $this->hasMany(TbPemesananKontrakan::className(), ['id_kontrakan' => 'id_kontrakan']);
+        return $this->hasMany(PemesananKontrakan::className(), ['id_kontrakan' => 'id_kontrakan']);
     }
 }

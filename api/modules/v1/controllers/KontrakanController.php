@@ -30,27 +30,6 @@ class KontrakanController extends Controller
 		return $response;
 	}
 
-  /*
-	GET
-	Fungsi untuk mendapatkan data kontrakan filter by id_kontrakan
-	*/
-  public function actionById ($id_kontrakan){
-    Yii::$app->response->format = Response::FORMAT_JSON;
-
-    $response = null;
-
-    if (Yii::$app->request->isGet) {
-      // code...
-      $kontrakan = Kontrakan::find()
-                      ->where(['id_kos' => $id_kontrakan])
-                      ->all();
-
-                      $response['master'] = $kontrakan;
-    }
-
-    return $response;
-  }
-
 	/*
 	GET
 	Fungsi untuk mendapatkan semua data-data kontrakan yang terdekat dari lokasi saat ini
@@ -88,7 +67,7 @@ class KontrakanController extends Controller
 
     if (Yii::$app->request->isGet) {
       // code...
-      $kos = Kos::find()
+      $kontrakan = Kontrakan::find()
                       ->where(['id_kontrakan' => $id_kontrakan])
                       ->all();
 
@@ -139,11 +118,11 @@ class KontrakanController extends Controller
       if($kontrakan->save(false)){
         //jika data berhasil disimpan
         $response['code'] = 1;
-				$response['message'] = "Tambah Kontrakan berhasil";
+				$response['message'] = "Data Kontrakan Berhasil Ditambah";
 				$response['data'] = $kontrakan;
       }else{
         $response['code'] = 0;
-				$response['message'] = "Tambah Kontrakan gagal";
+				$response['message'] = "Data Kontrakan Gagal Ditambah";
 				$response['data'] = null;
       }
     }
@@ -193,14 +172,14 @@ class KontrakanController extends Controller
         $kontrakan->rating= $rating;
         $kontrakan->status= $status;
 
-        if ($kontrakan->update()) {
+        if ($kontrakan->update(false)) {
           // jika data berhasil diupdate
           $response['code'] = 1;
-  				$response['message'] = "Update berhasil";
+  				$response['message'] = "Update Data Kontrakan berhasil";
   				$response['data'] = $kontrakan;
         }else {
           $response['code'] = 0;
-  				$response['message'] = "Update gagal";
+  				$response['message'] = "Update Data Kontrakan gagal";
   				$response['data'] = null;
         }
       }else {
@@ -211,6 +190,48 @@ class KontrakanController extends Controller
     }
     return $response;
 
+  }
+
+	/*
+  UPDATE
+  Fungsi untuk update data kontrakan tidak aktif menjadi tersedia
+  */
+  public function actionUpdateKontrakanTersedia() {
+    Yii::$app->response->format = Response::FORMAT_JSON;
+
+    $response = null;
+
+    if (Yii::$app->request->isPost) {
+      $data = Yii::$app->request->Post();
+
+      $id_kontrakan= $data['id_kontrakan'];
+      $status = $data['status'];
+
+      $kontrakan = Kontrakan::find()
+                      ->where(['id_kontrakan' => $id_kontrakan])
+                      ->one();
+
+      if (isset($kontrakan)) {
+        // code...
+        $kontrakan->status= 'tersedia';
+
+        if ($kontrakan->update(false)) {
+          // jika data berhasil diupdate
+          $response['code'] = 1;
+  				$response['message'] = "Update kontrakan menjadi tersedia berhasil";
+  				$response['data'] = $kontrakan;
+        }else {
+          $response['code'] = 0;
+  				$response['message'] = "Update kontrakan menjadi tersedia gagal";
+  				$response['data'] = null;
+        }
+      }else {
+        $response['code'] = 0;
+        $response['message'] = "Data tidak ditemukan";
+        $response['data'] = null;
+      }
+    }
+    return $response;
   }
 
   /*
@@ -235,11 +256,11 @@ class KontrakanController extends Controller
                           if($kontrakan->delete()){
                             //jika data berhasil dihapus
                             $response['code'] = 1;
-                            $response['message'] = "Delete berhasil";
+                            $response['message'] = "Data Kontrakan Berhasil Dihapus";
                           }else {
                             // code...
                             $response['code'] = 0;
-                            $response['message'] = "Delete Gagal";
+                            $response['message'] = "Data Kontrakan Gagal Dihapus";
                           }
 
                         }else {

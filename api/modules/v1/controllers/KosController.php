@@ -52,7 +52,6 @@ class KosController extends Controller
 
 			$response['master'] = Yii::$app->db->createCommand($sql)->queryAll();
 		}
-
 		return $response;
 	}
 
@@ -73,7 +72,6 @@ class KosController extends Controller
 
                       $response['master'] = $kos;
     }
-
     return $response;
   }
 
@@ -122,11 +120,11 @@ class KosController extends Controller
       if($kos->save(false)){
         //jika data berhasil disimpan
         $response['code'] = 1;
-				$response['message'] = "Tambah Kos berhasil";
+				$response['message'] = "Data Kos Berhasil Ditambah";
 				$response['data'] = $kos;
       }else{
         $response['code'] = 0;
-				$response['message'] = "Tambah Kos gagal";
+				$response['message'] = "Data Kos Gagal Ditambah";
 				$response['data'] = null;
       }
     }
@@ -180,14 +178,14 @@ class KosController extends Controller
         $kos->stok_kamar= $stok_kamar;
         $kos->jenis_kos= $jenis_kos;
 
-        if ($kos->update()) {
+        if ($kos->update(false)) {
           // jika data berhasil diupdate
           $response['code'] = 1;
-  				$response['message'] = "Update berhasil";
+  				$response['message'] = "Update Data Kos berhasil";
   				$response['data'] = $kos;
         }else {
           $response['code'] = 0;
-  				$response['message'] = "Update gagal";
+  				$response['message'] = "Update Data Kos gagal";
   				$response['data'] = null;
         }
       }else {
@@ -198,6 +196,48 @@ class KosController extends Controller
     }
     return $response;
 
+  }
+
+	/*
+  UPDATE
+  Fungsi untuk update data kos tidak aktif menjadi tersedia
+  */
+  public function actionUpdateKosTersedia() {
+    Yii::$app->response->format = Response::FORMAT_JSON;
+
+    $response = null;
+
+    if (Yii::$app->request->isPost) {
+      $data = Yii::$app->request->Post();
+
+      $id_kos= $data['id_kos'];
+      $status = $data['status'];
+
+      $kos = Kos::find()
+                      ->where(['id_kos' => $id_kos])
+                      ->one();
+
+      if (isset($kos)) {
+        // code...
+        $kos->status= 'tersedia';
+
+        if ($kos->update(false)) {
+          // jika data berhasil diupdate
+          $response['code'] = 1;
+  				$response['message'] = "Update kos menjadi tersedia berhasil";
+  				$response['data'] = $kos;
+        }else {
+          $response['code'] = 0;
+  				$response['message'] = "Update kos menjadi tersedia gagal";
+  				$response['data'] = null;
+        }
+      }else {
+        $response['code'] = 0;
+        $response['message'] = "Data tidak ditemukan";
+        $response['data'] = null;
+      }
+    }
+    return $response;
   }
 
   /*
@@ -222,11 +262,11 @@ class KosController extends Controller
                           if($kos->delete()){
                             //jika data berhasil dihapus
                             $response['code'] = 1;
-                            $response['message'] = "Delete berhasil";
+                            $response['message'] = "Data Kos Berhasil Dihapus";
                           }else {
                             // code...
                             $response['code'] = 0;
-                            $response['message'] = "Delete Gagal";
+                            $response['message'] = "Data Kos Gagal Dihapus";
                           }
 
                         }else {

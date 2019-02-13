@@ -138,11 +138,11 @@ class PemesananKosController extends Controller
       if($pemesanan_kos->save(false)){
         //jika data berhasil disimpan
         $response['code'] = 1;
-				$response['message'] = "Tambah Pemesanan Kos berhasil";
+				$response['message'] = "Pemesanan Kos berhasil ditambah";
 				$response['data'] = $pemesanan_kos;
       }else{
         $response['code'] = 0;
-				$response['message'] = "Tambah Pemesanan Kos gagal";
+				$response['message'] = "Pemesanan Kos gagal ditambah";
 				$response['data'] = null;
       }
     }
@@ -153,6 +153,7 @@ class PemesananKosController extends Controller
   UPDATE
   Fungsi untuk update data status kos dari booking menjadi dalam pemesanan
   */
+
   public function actionUpdateStatusPemesananKosDalamPemesanan() {
     Yii::$app->response->format = Response::FORMAT_JSON;
 
@@ -179,16 +180,16 @@ class PemesananKosController extends Controller
 									->one();
 
 									$kos->stok_kamar -= 1;
+									// jika data berhasil diupdate
 									if ($kos->update(false)) {
 										$response['code'] = 1;
-					  				$response['message'] = "Update status pemesanan kos berhasil menjadi dalam pemesanan";
+					  				$response['message'] = "Status pemesanan kos berhasil diupdate menjadi dalam pemesanan";
 					  				$response['data'] = $pemesanan_kos;
 									}else {
 										$response['code'] = 0;
-					  				$response['message'] = "Update status pemesanan kos gagal menjadi dalam pemesanan";
+					  				$response['message'] = "Status pemesanan kos gagal diupdate menjadi dalam pemesanan";
 					  				$response['data'] = null;
 									}
-          // jika data berhasil diupdate
 
         }else {
           $response['code'] = 0;
@@ -208,6 +209,7 @@ class PemesananKosController extends Controller
   UPDATE
   Fungsi untuk update data status kos dari dalam pemesanan menjadi selesai
   */
+
   public function actionUpdateStatusPemesananKosSelesai() {
     Yii::$app->response->format = Response::FORMAT_JSON;
 
@@ -238,16 +240,16 @@ class PemesananKosController extends Controller
 									->one();
 
 									$kos->stok_kamar += 1;
+									  // jika data berhasil diupdate
 									if ($kos->update(false)) {
 										$response['code'] = 1;
-					  				$response['message'] = "Update pemesanan dan kos berhasil menjadi selesai";
+					  				$response['message'] = "Status pemesanan kos berhasil diupdate menjadi selesai";
 					  				$response['data'] = $pemesanan_kos;
 									}else {
 										$response['code'] = 0;
-					  				$response['message'] = "Update pemesanan dan kos gagal menjadi selesai";
+					  				$response['message'] = "Status pemesanan kos gagal diupdate menjadi selesai";
 					  				$response['data'] = null;
 									}
-          // jika data berhasil diupdate
 
         }else {
           $response['code'] = 0;

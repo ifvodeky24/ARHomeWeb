@@ -89,6 +89,6 @@ class Kos extends \yii\db\ActiveRecord
      */
     public function getTbPemesananKos()
     {
-        return $this->hasMany(TbPemesananKos::className(), ['id_kos' => 'id_kos']);
+        return $this->hasMany(PemesananKos::className(), ['id_kos' => 'id_kos']);
     }
 }

@@ -33,15 +33,32 @@ class PemesananKontrakanController extends Controller
      * Lists all PemesananKontrakan models.
      * @return mixed
      */
-    public function actionIndex()
-    {
-        $searchModel = new PemesananKontrakanSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+    // public function actionIndex()
+    // {
+    //     $searchModel = new PemesananKontrakanSearch();
+    //     $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+    //
+    //     return $this->render('index', [
+    //         'searchModel' => $searchModel,
+    //         'dataProvider' => $dataProvider,
+    //     ]);
+    // }
+    
+    // Mengubah fungsi index menjadi ascending
+        public function actionIndex()
+        {
+
+        $model= (new \yii\db\Query())
+        ->select('*')
+        ->from('tb_pemesanan_kontrakan')
+        ->orderBy('id_kontrakan ASC')
+        ->all();
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+        // 'dataProvider' => $dataProvider,
+        'model'=>$model,
+    ]);
+
     }
 
     /**

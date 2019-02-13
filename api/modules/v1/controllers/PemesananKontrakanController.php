@@ -27,7 +27,6 @@ class PemesananKontrakanController extends Controller
 
 			$response['master'] = $pemesanan_kontrakan;
 		}
-
 		return $response;
 	}
 
@@ -48,7 +47,6 @@ class PemesananKontrakanController extends Controller
 
                       $response['master'] = $pemesanan_kontrakan;
     }
-
     return $response;
   }
 
@@ -77,7 +75,6 @@ class PemesananKontrakanController extends Controller
 
               $response['master'] = Yii::$app->db->createCommand($sql)->queryAll();;
     }
-
     return $response;
   }
 
@@ -105,7 +102,6 @@ class PemesananKontrakanController extends Controller
 
               $response['master'] = Yii::$app->db->createCommand($sql)->queryAll();;
     }
-
     return $response;
   }
 
@@ -127,7 +123,7 @@ class PemesananKontrakanController extends Controller
       $review = $data['review'];
       $rating = $data['rating'];
 
-      // lakukan insert data
+      //lakukan insert data
       $pemesanan_kontrakan = new PemesananKontrakan();
       $pemesanan_kontrakan->id_pengguna= $id_pengguna;
       $pemesanan_kontrakan->id_kontrakan= $id_kontrakan;
@@ -138,11 +134,11 @@ class PemesananKontrakanController extends Controller
       if($pemesanan_kontrakan->save(false)){
         //jika data berhasil disimpan
         $response['code'] = 1;
-				$response['message'] = "Tambah Pemesanan Kontrakan berhasil";
+				$response['message'] = "Pemesanan Kontrakan Berhasil ditambah";
 				$response['data'] = $pemesanan_kontrakan;
       }else{
         $response['code'] = 0;
-				$response['message'] = "Tambah Pemesanan Kontrakan gagal";
+				$response['message'] = "Pemesanan Kontrakan Gagal ditambah";
 				$response['data'] = null;
       }
     }
@@ -173,24 +169,37 @@ class PemesananKontrakanController extends Controller
         $pemesanan_kontrakan->status= $status;
 
         if ($pemesanan_kontrakan->update(false)) {
-          // jika data berhasil diupdate
-          $response['code'] = 1;
-  				$response['message'] = "Update pemesanan kontrakan menjadi dalam pemesanan berhasil";
-  				$response['data'] = $pemesanan_kontrakan;
-        }else {
-          $response['code'] = 0;
-  				$response['message'] = "Update pemesanan kontrakan menjadi dalam pemesanan gagal";
-  				$response['data'] = null;
-        }
-      }else {
-        $response['code'] = 0;
-        $response['message'] = "Data tidak ditemukan";
-        $response['data'] = null;
-      }
-    }
-    return $response;
+					$kontrakan = Kontrakan::find()
+									->where(['id_kontrakan' => $pemesanan_kontrakan->id_kontrakan])
+									->one();
 
-  }
+					$kontrakan->status = 'tidak tersedia';
+					// jika data berhasil diupdate
+					if ($kontrakan->update(false)) {
+						$response['code'] = 1;
+						$response['message'] = "Status  pemesanan kontrakan berhasil diupdate menjadi dalam pemesanan";
+						$response['data'] = $pemesanan_kontrakan;
+					}else {
+						$response['code'] = 0;
+						$response['message'] = "Status  pemesanan kontrakan gagal diupdate menjadi dalam pemesanan";
+						$response['data'] = null;
+					}
+
+					}else {
+						$response['code'] = 0;
+						$response['message'] = "Update gagal";
+						$response['data'] = null;
+					}
+								}else {
+								$response['code'] = 0;
+								$response['message'] = "Data tidak ditemukan";
+								$response['data'] = null;
+								}
+						}
+	return $response;
+	}
+
+
 
 	/*
   UPDATE
@@ -219,23 +228,34 @@ class PemesananKontrakanController extends Controller
 				$pemesanan_kontrakan->review= $review;
         $pemesanan_kontrakan->rating= $rating;
 
-        if ($pemesanan_kontrakan->update(false)) {
-          // jika data berhasil diupdate
-          $response['code'] = 1;
-  				$response['message'] = "Update pemesanan kontrakan menjadi selesai berhasil";
-  				$response['data'] = $pemesanan_kontrakan;
-        }else {
-          $response['code'] = 0;
-  				$response['message'] = "Update pemesanan kontrakan menjadi selesai gagal";
-  				$response['data'] = null;
-        }
-      }else {
-        $response['code'] = 0;
-        $response['message'] = "Data tidak ditemukan";
-        $response['data'] = null;
-      }
-    }
-    return $response;
+				if ($pemesanan_kontrakan->update(false)) {
+					$kontrakan = Kontrakan::find()
+									->where(['id_kontrakan' => $pemesanan_kontrakan->id_kontrakan])
+									->one();
 
-  }
+					$kontrakan->status = 'tersedia';
+					// jika data berhasil diupdate
+					if ($kontrakan->update(false)) {
+						$response['code'] = 1;
+						$response['message'] = "Status  pemesanan kontrakan berhasil diupdate menjadi selesai";
+						$response['data'] = $pemesanan_kontrakan;
+					}else {
+						$response['code'] = 0;
+						$response['message'] = "Status  pemesanan kontrakan gagal diupdate menjadi selesai";
+						$response['data'] = null;
+					}
+
+					}else {
+						$response['code'] = 0;
+						$response['message'] = "Update gagal";
+						$response['data'] = null;
+					}
+								}else {
+								$response['code'] = 0;
+								$response['message'] = "Data tidak ditemukan";
+								$response['data'] = null;
+								}
+					}
+			return $response;
+			}
 }

@@ -33,16 +33,31 @@ class KosController extends Controller
      * Lists all Kos models.
      * @return mixed
      */
+    // public function actionIndex()
+    // {
+    //     $searchModel = new KosSearch();
+    //     $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+    //
+    //     return $this->render('index', [
+    //         'searchModel' => $searchModel,
+    //         'dataProvider' => $dataProvider,
+    //     ]);
+    // }
     public function actionIndex()
     {
-        $searchModel = new KosSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
+    $model= (new \yii\db\Query())
+    ->select('*')
+    ->from('dt_kos')
+    ->orderBy('id_kos ASC')
+    ->all();
+
+    return $this->render('index', [
+    // 'dataProvider' => $dataProvider,
+    'model'=>$model,
+]);
+
+}
 
     /**
      * Displays a single Kos model.

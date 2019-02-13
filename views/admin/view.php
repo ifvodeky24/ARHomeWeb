@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Admin */
 
 $this->title = $model->id_admin;
-$this->params['breadcrumbs'][] = ['label' => 'Admins', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Admin', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>

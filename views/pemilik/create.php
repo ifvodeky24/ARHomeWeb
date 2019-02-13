@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Pemilik */
 
-$this->title = 'Create Pemilik';
-$this->params['breadcrumbs'][] = ['label' => 'Pemiliks', 'url' => ['index']];
+$this->title = 'Tambah Pemilik';
+$this->params['breadcrumbs'][] = ['label' => 'Pemilik', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pemilik-create">
