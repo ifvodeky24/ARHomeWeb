@@ -6,8 +6,8 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Pemilik */
 
-$this->title = $model->id_pemilik;
-$this->params['breadcrumbs'][] = ['label' => 'Pemiliks', 'url' => ['index']];
+$this->title = $model->nama_lengkap;
+$this->params['breadcrumbs'][] = ['label' => 'Pemilik', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Delete', ['delete', 'id' => $model->id_pemilik], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Apakah anda yakin ingin menghapus item ini?',
                 'method' => 'post',
             ],
         ]) ?>

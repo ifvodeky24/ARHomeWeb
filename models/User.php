@@ -2,7 +2,10 @@
 
 namespace app\models;
 
-class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
+use yii\db\ActiveRecord;
+use yii\web\IdentityInterface;
+
+class User extends ActiveRecord implements IdentityInterface
 {
     public $id;
     public $username;
@@ -10,22 +13,44 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
     public $authKey;
     public $accessToken;
 
-    private static $users = [
-        '100' => [
-            'id' => '100',
-            'username' => 'admin',
-            'password' => 'admin',
-            'authKey' => 'test100key',
-            'accessToken' => '100-token',
-        ],
-        '101' => [
-            'id' => '101',
-            'username' => 'demo',
-            'password' => 'demo',
-            'authKey' => 'test101key',
-            'accessToken' => '101-token',
-        ],
-    ];
+    // private static $users = [
+    //     '100' => [
+    //         'id' => '100',
+    //         'username' => 'admin',
+    //         'password' => 'admin',
+    //         'authKey' => 'test100key',
+    //         'accessToken' => '100-token',
+    //     ],
+    //     '101' => [
+    //         'id' => '101',
+    //         'username' => 'demo',
+    //         'password' => 'demo',
+    //         'authKey' => 'test101key',
+    //         'accessToken' => '101-token',
+    //     ],
+    // ];
+
+    public static function tableName(){
+      return 'tb_admin';
+    }
+
+    public function rules(){
+      return[
+        [['id_admin', 'username', 'password'], 'required'],
+        [['id_admin'], 'integer'],
+        [['username'], 'string', 'max' => 30],
+        [['password'], 'string', 'max' => 255],
+        [['id_admin'], 'unique'],
+      ];
+    }
+
+    public function attributeLabels(){
+      return[
+        'id_admin' => 'Id Admin',
+        'username' => 'Username',
+        'password' => 'Password',
+      ];
+    }
 
 
     /**
@@ -58,10 +83,20 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
      */
     public static function findByUsername($username)
     {
-        foreach (self::$users as $user) {
-            if (strcasecmp($user['username'], $username) === 0) {
-                return new static($user);
-            }
+        // foreach (User::$users as $user) {
+        //     if (strcasecmp($user['username'], $username) === 0) {
+        //         return new static($user);
+        //     }
+        // }
+
+        $user = User::find()->where(['username'=>$username])->one();
+
+        // echo "<pre>";
+        // var_dump($user);
+        // exit();
+
+        if (count($user)) {
+          return new static ($user);
         }
 
         return null;

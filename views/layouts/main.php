@@ -26,8 +26,9 @@ BackAsset::register($this);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <?= Html::csrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
-    <link rel="icon" href="<?php echo Yii::$app->request->baseUrl; ?>/custom/images/favicon.png">
+    <title>ARHome</title>
+    <link rel="shortcut icon" href="<?php echo Yii::$app->request->baseUrl; ?>/favicon.ico?v=1" type="image/x-icon"/>
+
     <?php $this->head() ?>
 </head>
 
@@ -557,4 +558,14 @@ BackAsset::register($this);
       showInputs: false
     })
   })
+</script>
+
+<script>
+  $(function () {
+    $('input').iCheck({
+      checkboxClass: 'icheckbox_square-blue',
+      radioClass: 'iradio_square-blue',
+      increaseArea: '20%' /* optional */
+    });
+  });
 </script>

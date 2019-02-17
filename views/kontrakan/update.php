@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Kontrakan */
 
-$this->title = 'Update Kontrakan: ' . $model->id_kontrakan;
-$this->params['breadcrumbs'][] = ['label' => 'Kontrakans', 'url' => ['index']];
+$this->title = 'Update Kontrakan: ' . $model->nama;
+$this->params['breadcrumbs'][] = ['label' => 'Kontrakan', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id_kontrakan, 'url' => ['view', 'id' => $model->id_kontrakan]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

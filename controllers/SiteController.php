@@ -61,6 +61,9 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+      if (Yii::$app->user->isGuest) {
+        return Yii::$app->getResponse()->redirect(Yii::$app->getHomeUrl()."site/login");
+      }
         return $this->render('index');
     }
 
@@ -94,13 +97,13 @@ class SiteController extends Controller
         }
 
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+        if ($model->load(Yii::$app->request->post())&& $model->login()) {
             return $this->goBack();
-        } else {
+        }
+            $model->password= '';
             return $this->render('login', [
                 'model' => $model,
             ]);
-        }
     }
 
     /**

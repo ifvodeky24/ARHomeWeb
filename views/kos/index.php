@@ -62,6 +62,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <th><center>Deskripsi</center></th>
             <th><center>Foto</center></th>
             <th><center>Waktu Post</center></th>
+            <th><center>Status</center></th>
             <th><center>Aksi</center></th>
           </tr>
           </thead>
@@ -78,6 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <td><center> <?= $db['deskripsi'];?> </center></td>
             <td><center> <?= $db['foto'];?> </center></td>
             <td><center> <?= $db['waktu_post'];?> </center></td>
+            <td><center> <?= $db['status'];?> </center></td>
 
             <td> <center>
           <?= Html::a('<i class="fa fa-search"></i>', ['/kos/view','id'=>$db['id_kos']], ['class' => 'btn btn-warning']) ?>

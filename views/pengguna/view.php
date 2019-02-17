@@ -6,8 +6,8 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Pengguna */
 
-$this->title = $model->id_pengguna;
-$this->params['breadcrumbs'][] = ['label' => 'Penggunas', 'url' => ['index']];
+$this->title = $model->nama_lengkap;
+$this->params['breadcrumbs'][] = ['label' => 'Pengguna', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Delete', ['delete', 'id' => $model->id_pengguna], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Apakah anda yakin ingin menghapus item ini?',
                 'method' => 'post',
             ],
         ]) ?>
