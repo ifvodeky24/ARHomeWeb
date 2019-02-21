@@ -55,6 +55,7 @@ class KosController extends Controller
 		return $response;
 	}
 
+
   /*
 	GET
 	Fungsi untuk mendapatkan data kos di filter by id_kos
@@ -66,11 +67,16 @@ class KosController extends Controller
 
     if (Yii::$app->request->isGet) {
       // code...
-      $kos = Kos::find()
-                      ->where(['id_kos' => $id_kos])
-                      ->all();
+     $sql = "SELECT dt_kos.id_kos, dt_kos.deskripsi as deskripsi_kos, dt_kos.foto as foto_kos_1, dt_kos.foto_2 as foto_kos_2, 
+              dt_kos.foto_3 as foto_kos_3, dt_kos.harga as harga_kos, dt_kos.altitude, dt_kos.latitude, dt_kos.longitude, dt_kos.nama as nama_kos, dt_kos.rating as rating_kos, dt_kos.status as status_kos, dt_kos.waktu_post,
+              
+              tb_pemilik.id_pemilik, tb_pemilik.nama_lengkap as nama_lengkap_pemilik, tb_pemilik.no_handphone as no_handphone_pemilik, tb_pemilik.foto as foto_pemilik, tb_pemilik.alamat as alamat_pemilik
+              
+              FROM dt_kos INNER JOIN tb_pemilik
+              WHERE dt_kos.id_pemilik = tb_pemilik.id_pemilik
+              AND dt_kos.id_kos = '$id_kos'";
 
-                      $response['master'] = $kos;
+              $response['master'] = Yii::$app->db->createCommand($sql)->queryAll();;
     }
     return $response;
   }
@@ -90,14 +96,16 @@ class KosController extends Controller
       $nama = $data['nama'];
       $deskripsi = $data['deskripsi'];
       $foto = $data['foto'];
-      $waktu_post = $data['waktu_post'];
+      $foto_2 = $data['foto_2'];
+      $foto_3 = $data['foto_3'];
+      // $waktu_post = $data['waktu_post'];
       $id_pemilik = $data['id_pemilik'];
       $latitude = $data['latitude'];
       $longitude = $data['longitude'];
       $altitude = $data['altitude'];
       $harga = $data['harga'];
-      $rating = $data['rating'];
-      $status = $data['status'];
+      $rating = '0';
+      $status = 'tidak aktif';
       $stok_kamar = $data['stok_kamar'];
       $jenis_kos = $data['jenis_kos'];
 
@@ -106,7 +114,9 @@ class KosController extends Controller
       $kos->nama= $nama;
       $kos->deskripsi= $deskripsi;
       $kos->foto= $foto;
-      $kos->waktu_post= $waktu_post;
+      $kos->foto_2= $foto_2;
+      $kos->foto_3= $foto_3;
+      // $kos->waktu_post= $waktu_post;
       $kos->id_pemilik= $id_pemilik;
       $kos->latitude= $latitude;
       $kos->longitude= $longitude;

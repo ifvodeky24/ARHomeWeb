@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Admin */
 
 $this->title = $model->id_admin;
-$this->params['breadcrumbs'][] = ['label' => 'Admin', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Admins', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Delete', ['delete', 'id' => $model->id_admin], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Apakah anda yakin ingin menghapus item ini?',
+                'confirm' => 'Are you sure you want to delete this item?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -32,6 +32,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'id_admin',
             'username',
             'password',
+            'authKey',
+            'accesToken',
+            'role',
+            'foto',
         ],
     ]) ?>
 

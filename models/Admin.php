@@ -10,6 +10,10 @@ use Yii;
  * @property int $id_admin
  * @property string $username
  * @property string $password
+ * @property string $authKey
+ * @property string $accesToken
+ * @property string $role
+ * @property string $foto
  */
 class Admin extends \yii\db\ActiveRecord
 {
@@ -27,9 +31,11 @@ class Admin extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['username', 'password'], 'required'],
+            [['username', 'password', 'authKey', 'accesToken', 'role', 'foto'], 'required'],
+            [['role'], 'string'],
             [['username'], 'string', 'max' => 30],
-            [['password'], 'string', 'max' => 255],
+            [['password', 'foto'], 'string', 'max' => 255],
+            [['authKey', 'accesToken'], 'string', 'max' => 50],
         ];
     }
 
@@ -42,6 +48,10 @@ class Admin extends \yii\db\ActiveRecord
             'id_admin' => 'Id Admin',
             'username' => 'Username',
             'password' => 'Password',
+            'authKey' => 'Auth Key',
+            'accesToken' => 'Acces Token',
+            'role' => 'Role',
+            'foto' => 'Foto',
         ];
     }
 }

@@ -18,17 +18,13 @@ BackAsset::register($this);
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
 <head>
-  <!-- Fungsi untuk menambahkan ikon -->
-  <!-- <link rel="icon"
-      type="image/png"
-      href="/somewhere/myicon.png" /> -->
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <?= Html::csrfMetaTags() ?>
     <title>ARHome</title>
+    <!-- Fungsi untuk menambahkan ikon -->
     <link rel="shortcut icon" href="<?php echo Yii::$app->request->baseUrl; ?>/favicon.ico?v=1" type="image/x-icon"/>
-
     <?php $this->head() ?>
 </head>
 
@@ -118,10 +114,12 @@ BackAsset::register($this);
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  <a href="#" class="btn btn-default btn-flat">Profil</a>
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+
+                    <?= Html::a('Keluar', ['site/logout'], ['data-method' => 'POST']) ?>
+
                 </div>
               </li>
             </ul>

@@ -5,30 +5,21 @@ namespace app\models;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
+/**
+ * This is the model class for table "user".
+ *
+ * @property int $id_admin
+ * @property string $username
+ * @property string $password
+ * @property string $authKey
+ * @property string $accessToken
+ * @property string $role
+ */
+
 class User extends ActiveRecord implements IdentityInterface
 {
-    public $id;
-    public $username;
-    public $password;
-    public $authKey;
-    public $accessToken;
-
-    // private static $users = [
-    //     '100' => [
-    //         'id' => '100',
-    //         'username' => 'admin',
-    //         'password' => 'admin',
-    //         'authKey' => 'test100key',
-    //         'accessToken' => '100-token',
-    //     ],
-    //     '101' => [
-    //         'id' => '101',
-    //         'username' => 'demo',
-    //         'password' => 'demo',
-    //         'authKey' => 'test101key',
-    //         'accessToken' => '101-token',
-    //     ],
-    // ];
+    const ADMIN = "Admin";
+    const SUPER_ADMIN = "SuperAdmin";
 
     public static function tableName(){
       return 'tb_admin';
@@ -36,19 +27,25 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function rules(){
       return[
-        [['id_admin', 'username', 'password'], 'required'],
-        [['id_admin'], 'integer'],
+        [['username', 'password', 'authKey', 'accessToken', 'role', 'foto'], 'required'],
+        [['role'], 'string'],
         [['username'], 'string', 'max' => 30],
         [['password'], 'string', 'max' => 255],
-        [['id_admin'], 'unique'],
+        [['authKey', 'accessToken'], 'string', 'max' => 50],
+        [['foto'],'file','extensions' => 'jpeg, jpeg, png', 'maxSize' => 1024*
+          1024*1,'on' => 'create'],
       ];
     }
 
     public function attributeLabels(){
       return[
-        'id_admin' => 'Id Admin',
-        'username' => 'Username',
-        'password' => 'Password',
+        'id_admin'   => 'Id Admin',
+        'username'   => 'Username',
+        'password'   => 'Password',
+        'authKey'    => 'Auth Key',
+        'accessToken'=> 'Access Token',
+        'role'       => 'Role',
+        'foto'       => 'Foto Profil',
       ];
     }
 
@@ -58,7 +55,13 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findIdentity($id)
     {
-        return isset(self::$users[$id]) ? new static(self::$users[$id]) : null;
+        // mencari user berdasarkan ID dan yg dicari hanya 1
+        $user = Admin::findOne($id);
+
+        if (count($user)) {
+            return new static($user);
+        }
+        return null;
     }
 
     /**
@@ -66,13 +69,14 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        foreach (self::$users as $user) {
-            if ($user['accessToken'] === $token) {
-                return new static($user);
-            }
-        }
+      // mencari user berdasarkan accesToken dan yang dicari hanya 1
+      $user = Admin::find()->where(['accessToken' => $token])->one();
 
-        return null;
+      if (count($user)) {
+          return new static($user);
+      }
+
+      return null;
     }
 
     /**
@@ -83,20 +87,11 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findByUsername($username)
     {
-        // foreach (User::$users as $user) {
-        //     if (strcasecmp($user['username'], $username) === 0) {
-        //         return new static($user);
-        //     }
-        // }
-
-        $user = User::find()->where(['username'=>$username])->one();
-
-        // echo "<pre>";
-        // var_dump($user);
-        // exit();
+      // mencari user berdasarkan username dan yang dicari haya 1
+        $user = Admin::find()->where(['username' => $username])->one();
 
         if (count($user)) {
-          return new static ($user);
+            return new static($user);
         }
 
         return null;
@@ -107,7 +102,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function getId()
     {
-        return $this->id;
+        return $this->id_admin;
     }
 
     /**

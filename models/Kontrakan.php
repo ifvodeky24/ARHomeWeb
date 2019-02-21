@@ -11,13 +11,15 @@ use Yii;
  * @property string $nama
  * @property string $deskripsi
  * @property string $foto
+ * @property string $foto_2
+ * @property string $foto_3
  * @property string $waktu_post
  * @property int $id_pemilik
  * @property double $latitude
  * @property double $longitude
  * @property double $altitude
  * @property int $harga
- * @property string $rating
+ * @property int $rating
  * @property string $status
  *
  * @property TbPemilik $pemilik
@@ -39,14 +41,13 @@ class Kontrakan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama', 'deskripsi', 'foto', 'waktu_post', 'id_pemilik', 'latitude', 'longitude', 'altitude', 'harga', 'rating', 'status'], 'required'],
+            [['nama', 'deskripsi', 'foto', 'id_pemilik', 'latitude', 'longitude', 'altitude', 'harga', 'rating', 'status'], 'required'],
             [['waktu_post'], 'safe'],
-            [['id_pemilik', 'harga'], 'integer'],
+            [['id_pemilik', 'harga', 'rating'], 'integer'],
             [['latitude', 'longitude', 'altitude'], 'number'],
             [['status'], 'string'],
-            [['nama', 'foto'], 'string', 'max' => 30],
+            [['nama', 'foto', 'foto_2', 'foto_3'], 'string', 'max' => 30],
             [['deskripsi'], 'string', 'max' => 100],
-            [['rating'], 'string', 'max' => 20],
             [['id_pemilik'], 'exist', 'skipOnError' => true, 'targetClass' => Pemilik::className(), 'targetAttribute' => ['id_pemilik' => 'id_pemilik']],
         ];
     }
@@ -61,6 +62,8 @@ class Kontrakan extends \yii\db\ActiveRecord
             'nama' => 'Nama',
             'deskripsi' => 'Deskripsi',
             'foto' => 'Foto',
+            'foto_2' => 'Foto 2',
+            'foto_3' => 'Foto 3',
             'waktu_post' => 'Waktu Post',
             'id_pemilik' => 'Id Pemilik',
             'latitude' => 'Latitude',
@@ -83,7 +86,7 @@ class Kontrakan extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTbPemesananKontrakans()
+    public function getPemesananKontrakan()
     {
         return $this->hasMany(PemesananKontrakan::className(), ['id_kontrakan' => 'id_kontrakan']);
     }

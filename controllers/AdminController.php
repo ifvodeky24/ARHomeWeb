@@ -33,31 +33,16 @@ class AdminController extends Controller
      * Lists all Admin models.
      * @return mixed
      */
-    // public function actionIndex()
-    // {
-    //     $searchModel = new AdminSearch();
-    //     $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-    //
-    //     return $this->render('index', [
-    //         'searchModel' => $searchModel,
-    //         'dataProvider' => $dataProvider,
-    //     ]);
-    // }
     public function actionIndex()
     {
+        $searchModel = new AdminSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-    $model= (new \yii\db\Query())
-    ->select('*')
-    ->from('tb_admin')
-    ->orderBy('id_admin ASC')
-    ->all();
-
-    return $this->render('index', [
-    // 'dataProvider' => $dataProvider,
-    'model'=>$model,
-]);
-
-}
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 
     /**
      * Displays a single Admin model.

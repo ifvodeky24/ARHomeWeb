@@ -58,7 +58,7 @@ class KontrakanController extends Controller
 
 	/*
 	GET
-	Fungsi untuk mendapatkan data kontrakan di filter by id_kontrakan
+	Fungsi untuk mendapatkan data kontrakan di filter by id_kontrakan dan di inner join dengan tb_pemilik
 	*/
   public function actionById ($id_kontrakan){
     Yii::$app->response->format = Response::FORMAT_JSON;
@@ -67,11 +67,16 @@ class KontrakanController extends Controller
 
     if (Yii::$app->request->isGet) {
       // code...
-      $kontrakan = Kontrakan::find()
-                      ->where(['id_kontrakan' => $id_kontrakan])
-                      ->all();
+       $sql = "SELECT dt_kontrakan.id_kontrakan, dt_kontrakan.deskripsi as deskripsi_kontrakan, dt_kontrakan.foto as foto_kontrakan_1, dt_kontrakan.foto_2 as foto_kontrakan_2, 
+              dt_kontrakan.foto_3 as foto_kontrakan_3, dt_kontrakan.harga as harga_kontrakan, dt_kontrakan.altitude, dt_kontrakan.latitude, dt_kontrakan.longitude, dt_kontrakan.nama as nama_kontrakan, dt_kontrakan.rating as rating_kontrakan, dt_kontrakan.status as status_kontrakan, dt_kontrakan.waktu_post,
+              
+              tb_pemilik.id_pemilik, tb_pemilik.nama_lengkap as nama_lengkap_pemilik, tb_pemilik.no_handphone as no_handphone_pemilik, tb_pemilik.foto as foto_pemilik, tb_pemilik.alamat as alamat_pemilik
+              
+              FROM dt_kontrakan INNER JOIN tb_pemilik
+              WHERE dt_kontrakan.id_pemilik = tb_pemilik.id_pemilik
+              AND dt_kontrakan.id_kontrakan = '$id_kontrakan'";
 
-                      $response['master'] = $kontrakan;
+              $response['master'] = Yii::$app->db->createCommand($sql)->queryAll();;
     }
 
     return $response;
@@ -92,21 +97,25 @@ class KontrakanController extends Controller
       $nama = $data['nama'];
       $deskripsi = $data['deskripsi'];
       $foto = $data['foto'];
-      $waktu_post = $data['waktu_post'];
+      $foto_2 = $data['foto_2'];
+      $foto_3 = $data['foto_3'];
+      // $waktu_post = $data['waktu_post'];
       $id_pemilik = $data['id_pemilik'];
       $latitude = $data['latitude'];
       $longitude = $data['longitude'];
       $altitude = $data['altitude'];
       $harga = $data['harga'];
-      $rating = $data['rating'];
-      $status = $data['status'];
+      $rating = '0';
+      $status = 'tidak aktif';
 
       // lakukan insert data
       $kontrakan = new Kontrakan();
       $kontrakan->nama= $nama;
       $kontrakan->deskripsi= $deskripsi;
       $kontrakan->foto= $foto;
-      $kontrakan->waktu_post= $waktu_post;
+      $kontrakan->foto_2= $foto_2;
+      $kontrakan->foto_3= $foto_3;
+      // $kontrakan->waktu_post= $waktu_post;
       $kontrakan->id_pemilik= $id_pemilik;
       $kontrakan->latitude= $latitude;
       $kontrakan->longitude= $longitude;

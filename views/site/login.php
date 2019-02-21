@@ -18,13 +18,26 @@ $this->params['breadcrumbs'][] = $this->title;
  		 		<a href="#"><b>AR</b>Home</a>
  		 		</div>
 
+				<div class="text-center">
+							 <h4 class="text-uppercase font-bold m-b-0">Login</h4>
+							 <br>
+							 <br>
+					 </div>
+
 		    <form action="../../index2.html" method="post">
 		      <div class="form-group has-feedback">
-		       	<?= $form->field($model, 'username')->textInput(['autofocus' => true, 'placeholder' => 'Username'])->label(false) ?>
+		       	<?= $form
+								->field($model, 'username')
+								->textInput(['placeholder' => $model->getAttributeLabel('username')])
+								->label(false) ?>
 		        <span class="glyphicon glyphicon-user form-control-feedback"></span>
 		      </div>
 		      <div class="form-group has-feedback">
-		        <?= $form->field($model, 'password')->passwordInput(['placeholder' => 'Password'])->label(false) ?>
+		        <?= $form
+						->field($model, 'password')
+						->passwordInput(['placeholder' => $model->getAttributeLabel('password')])
+						->label(false) ?>
+
 		        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
 		      </div>
 		      <div class="row">
@@ -33,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		        </div>
 		        <!-- /.col -->
 		        <div class="col-xs-12">
-		          <button type="submit" class="btn btn-success btn-block ">Masuk</button>
+							<?= Html::submitButton('Masuk', ['class'=>['btn btn-primary btn-bordred col-xs-12'], 'name' => 'login']) ?>
 		        </div>
 		        <!-- /.col -->
 		      </div>
