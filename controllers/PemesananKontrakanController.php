@@ -8,6 +8,7 @@ use app\models\PemesananKontrakanSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * PemesananKontrakanController implements the CRUD actions for PemesananKontrakan model.
@@ -20,6 +21,16 @@ class PemesananKontrakanController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['index','create', 'update', 'delete','view'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ]
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

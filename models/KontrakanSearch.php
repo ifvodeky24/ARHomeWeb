@@ -17,8 +17,8 @@ class KontrakanSearch extends Kontrakan
     public function rules()
     {
         return [
-            [['id_kontrakan', 'id_pemilik', 'harga'], 'integer'],
-            [['nama', 'deskripsi', 'foto', 'waktu_post', 'rating', 'status'], 'safe'],
+            [['id_kontrakan', 'id_pemilik', 'harga', 'rating'], 'integer'],
+            [['nama', 'deskripsi', 'foto', 'foto_2', 'foto_3', 'waktu_post', 'status'], 'safe'],
             [['latitude', 'longitude', 'altitude'], 'number'],
         ];
     }
@@ -66,12 +66,14 @@ class KontrakanSearch extends Kontrakan
             'longitude' => $this->longitude,
             'altitude' => $this->altitude,
             'harga' => $this->harga,
+            'rating' => $this->rating,
         ]);
 
         $query->andFilterWhere(['like', 'nama', $this->nama])
             ->andFilterWhere(['like', 'deskripsi', $this->deskripsi])
             ->andFilterWhere(['like', 'foto', $this->foto])
-            ->andFilterWhere(['like', 'rating', $this->rating])
+            ->andFilterWhere(['like', 'foto_2', $this->foto_2])
+            ->andFilterWhere(['like', 'foto_3', $this->foto_3])
             ->andFilterWhere(['like', 'status', $this->status]);
 
         return $dataProvider;

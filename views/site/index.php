@@ -4,6 +4,7 @@
 
 $this->title = 'AR_home';
 ?>
+
 <div class="site-index">
 
     <div class="jumbotron">

@@ -13,11 +13,11 @@ use app\assets\BackAsset;
 BackAsset::register($this);
 
 //$user=Yii::$app->user->identity->username;
-$user=Yii::$app->user->identity->username;
+// $user=Yii::$app->user->identity->username;
 // $session = Yii::$app->session;
 
-$role=Yii::$app->user->identity->role;
-$id=Yii::$app->user->identity->id;
+// $role=Yii::$app->user->identity->role;
+// $id=Yii::$app->user->identity->id;
 // $profil = \common\models\User::find()
 // ->where(['id' => $id])
 // // ->orderBy('text DESC')
@@ -237,6 +237,7 @@ $id=Yii::$app->user->identity->id;
           </ul>
         </li>
         <!-- Data Master Pemesanan Akhir-->
+        
         <br><br><br><br><br><br><br><br><br><br>
         <br><br><br><br><br><br><br><br><br><br>
         <br><br><br><br><br><br><br><br><br><br>

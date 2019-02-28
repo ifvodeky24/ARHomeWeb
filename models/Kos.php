@@ -50,7 +50,7 @@ class Kos extends \yii\db\ActiveRecord
             [['status', 'jenis_kos'], 'string'],
             [['nama', 'foto', 'foto_2', 'foto_3'], 'string', 'max' => 30],
             [['deskripsi'], 'string', 'max' => 100],
-            [['id_pemilik'], 'exist', 'skipOnError' => true, 'targetClass' => TbPemilik::className(), 'targetAttribute' => ['id_pemilik' => 'id_pemilik']],
+            [['id_pemilik'], 'exist', 'skipOnError' => true, 'targetClass' => Pemilik::className(), 'targetAttribute' => ['id_pemilik' => 'id_pemilik']],
         ];
     }
 

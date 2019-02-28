@@ -59,7 +59,6 @@ $this->params['breadcrumbs'][] = $this->title;
             <th><center>Nama</center></th>
             <th><center>Deskripsi</center></th>
             <th><center>Foto</center></th>
-            <th><center>Waktu Post</center></th>
             <th><center>Status</center></th>
             <th><center>Aksi</center></th>
           </tr>
@@ -76,7 +75,6 @@ $this->params['breadcrumbs'][] = $this->title;
             <td><center> <?= $db['nama'];?> </center></td>
             <td><center> <?= $db['deskripsi'];?> </center></td>
             <td><center> <?= $db['foto'];?> </center></td>
-            <td><center> <?= $db['waktu_post'];?> </center></td>
             <td><center> <?= $db['status'];?> </center></td>
 
             <td> <center>

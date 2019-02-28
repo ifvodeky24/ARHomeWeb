@@ -25,6 +25,8 @@ use yii\widgets\ActiveForm;
             <?= $form->field($model, 'nama')->textInput(['maxlength' => true,'placeholder'=>'Masukkan Nama Kontrakan','class'=>'form-control']) ?>
             <?= $form->field($model, 'deskripsi')->textInput(['maxlength' => true,'placeholder'=>'Masukkan Deskripsi Kontrakan','class'=>'form-control']) ?>
             <?= $form->field($model, 'foto')->textInput(['maxlength' => true,'placeholder'=>'Masukkan Foto Kontrakan','class'=>'form-control']) ?>
+            <?= $form->field($model, 'foto_2')->textInput(['maxlength' => true,'placeholder'=>'Masukkan Foto Kontrakan 2','class'=>'form-control']) ?>
+            <?= $form->field($model, 'foto_3')->textInput(['maxlength' => true,'placeholder'=>'Masukkan Foto Kontrakan 3','class'=>'form-control']) ?>
             <?= $form->field($model, 'waktu_post')->textInput(['maxlength' => true,'placeholder'=>'Masukkan Waktu Post','class'=>'form-control']) ?>
             <?= $form->field($model, 'id_pemilik')->textInput(['maxlength' => true,'placeholder'=>'Masukkan Id Pemilik','class'=>'form-control']) ?>
             <?= $form->field($model, 'latitude')->textInput(['maxlength' => true,'placeholder'=>'Masukkan Latitude','class'=>'form-control']) ?>

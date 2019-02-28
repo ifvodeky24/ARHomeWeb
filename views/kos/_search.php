@@ -23,6 +23,10 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'foto') ?>
 
+    <?= $form->field($model, 'foto_2') ?>
+
+    <?= $form->field($model, 'foto_3') ?>
+
     <?= $form->field($model, 'waktu_post') ?>
 
     <?php // echo $form->field($model, 'id_pemilik') ?>

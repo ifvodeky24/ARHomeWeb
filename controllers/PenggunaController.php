@@ -8,6 +8,7 @@ use app\models\PenggunaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * PenggunaController implements the CRUD actions for Pengguna model.
@@ -20,6 +21,16 @@ class PenggunaController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['index','create', 'update', 'delete','view'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ]
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

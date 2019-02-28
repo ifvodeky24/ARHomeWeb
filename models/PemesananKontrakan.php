@@ -12,7 +12,7 @@ use Yii;
  * @property int $id_kontrakan
  * @property string $status
  * @property string $review
- * @property string $rating
+ * @property int $rating
  *
  * @property TbPengguna $pengguna
  * @property DtKontrakan $kontrakan
@@ -34,9 +34,9 @@ class PemesananKontrakan extends \yii\db\ActiveRecord
     {
         return [
             [['id_pengguna', 'id_kontrakan', 'status', 'review', 'rating'], 'required'],
-            [['id_pengguna', 'id_kontrakan'], 'integer'],
+            [['id_pengguna', 'id_kontrakan', 'rating'], 'integer'],
             [['status'], 'string'],
-            [['review', 'rating'], 'string', 'max' => 30],
+            [['review'], 'string', 'max' => 200],
             [['id_pengguna'], 'exist', 'skipOnError' => true, 'targetClass' => Pengguna::className(), 'targetAttribute' => ['id_pengguna' => 'id_pengguna']],
             [['id_kontrakan'], 'exist', 'skipOnError' => true, 'targetClass' => Kontrakan::className(), 'targetAttribute' => ['id_kontrakan' => 'id_kontrakan']],
         ];

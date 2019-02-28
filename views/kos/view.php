@@ -33,6 +33,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'nama',
             'deskripsi',
             'foto',
+            'foto_2',
+            'foto_3',
             'waktu_post',
             'pemilik.nama_lengkap',
             'latitude',
