@@ -6,14 +6,15 @@ use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
 /**
- * This is the model class for table "user".
+ * This is the model class for table "tb_admin".
  *
  * @property int $id_admin
  * @property string $username
  * @property string $password
  * @property string $authKey
- * @property string $accessToken
+ * @property string $accesToken
  * @property string $role
+ * @property string $foto
  */
 
 class User extends ActiveRecord implements IdentityInterface
@@ -56,7 +57,7 @@ class User extends ActiveRecord implements IdentityInterface
     public static function findIdentity($id)
     {
         // mencari user berdasarkan ID dan yg dicari hanya 1
-        $user = Admin::findOne($id);
+        $user = User::findOne($id);
 
         if (count($user)) {
             return new static($user);
@@ -70,7 +71,7 @@ class User extends ActiveRecord implements IdentityInterface
     public static function findIdentityByAccessToken($token, $type = null)
     {
       // mencari user berdasarkan accesToken dan yang dicari hanya 1
-      $user = Admin::find()->where(['accessToken' => $token])->one();
+      $user = User::find()->where(['accessToken' => $token])->one();
 
       if (count($user)) {
           return new static($user);
@@ -88,7 +89,7 @@ class User extends ActiveRecord implements IdentityInterface
     public static function findByUsername($username)
     {
       // mencari user berdasarkan username dan yang dicari haya 1
-        $user = Admin::find()->where(['username' => $username])->one();
+        $user = User::find()->where(['username' => $username])->one();
 
         if (count($user)) {
             return new static($user);

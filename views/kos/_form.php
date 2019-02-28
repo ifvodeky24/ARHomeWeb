@@ -15,7 +15,7 @@ use yii\widgets\ActiveForm;
     <!-- general form elements -->
     <div class="box box-primary">
       <div class="box-header with-border">
-        <center><h3 class="box-title">Form Tambah Kos</h3><center>
+        <center><h3 class="box-title">Form Kos</h3><center>
       </div>
       <!-- /.box-header -->
       <!-- form start -->

@@ -43,7 +43,7 @@ class PemesananKontrakanController extends Controller
     //         'dataProvider' => $dataProvider,
     //     ]);
     // }
-    
+
     // Mengubah fungsi index menjadi ascending
         public function actionIndex()
         {
