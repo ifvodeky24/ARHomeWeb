@@ -10,6 +10,72 @@ use yii\web\Response;
 class KontrakanController extends Controller
 {
 
+  /**
+   * Aplikasi web ingin menampilkan semua kontrakan di google maps beserta marker
+   */
+    public function actionGetAllMarkers(){
+        Yii::$app->response->format = Response::FORMAT_XML;
+
+        $response = null;
+
+        if (Yii::$app->request->isGet){
+            $sql = "SELECT dt_kontrakan.id_kontrakan, dt_kontrakan.nama as nama_kontrakan, dt_kontrakan.deskripsi as deskripsi_kontrakan, dt_kontrakan.foto as foto_kontrakan_1, dt_kontrakan.foto_2 as foto_kontrakan_2, dt_kontrakan.foto_3 as foto_kontrakan_3, dt_kontrakan.harga as harga_kontrakan, dt_kontrakan.altitude, dt_kontrakan.latitude, dt_kontrakan.longitude, dt_kontrakan.rating as rating_kontrakan, dt_kontrakan.status as status_kontrakan, dt_kontrakan.waktu_post,
+              
+   tb_pemilik.id_pemilik, tb_pemilik.nama_lengkap as nama_lengkap_pemilik, tb_pemilik.no_handphone as no_handphone_pemilik, tb_pemilik.foto as foto_pemilik, tb_pemilik.alamat as alamat_pemilik
+              
+              FROM dt_kontrakan INNER JOIN tb_pemilik
+              WHERE dt_kontrakan.id_pemilik = tb_pemilik.id_pemilik
+              AND dt_kontrakan.id_kontrakan ORDER BY id_kontrakan DESC";
+
+            $response = Yii::$app->db->createCommand($sql)->queryAll();
+
+            //$this->layout='mainxml';
+       // Parsing Karakter-Karakter Khusus
+       function parseToXML($htmlStr)
+       {
+          $xmlStr=str_replace('<','<',$htmlStr);
+          $xmlStr=str_replace('>','>',$xmlStr);
+          $xmlStr=str_replace('"','"',$xmlStr);
+          $xmlStr=str_replace("'","'",$xmlStr);
+          $xmlStr=str_replace("&",'&',$xmlStr);
+          return $xmlStr;
+       }
+     
+      
+     
+       // Header File XML
+       header("Content-type: text/xml");
+     
+       // Parent node XML
+       echo '<markers>';
+     
+       // Iterasi baris, masing-masing menghasilkan node-node XML
+      foreach($response as $db)
+      {
+          // Menambahkan ke node dokumen XML
+          echo '<marker ';
+          echo 'id_kontrakan="' . parseToXML($db['id_kontrakan']) . '" ';
+          echo 'nama="' . parseToXML($db['nama']) . '" ';
+          echo 'deskripsi="' . parseToXML($db['deskripsi']) . '" ';
+          echo 'foto="' . parseToXML($db['foto']) . '" ';
+          echo 'foto_2="' . parseToXML($db['foto_2']) . '" ';
+          echo 'foto_3="' . parseToXML($db['foto_3']) . '" ';
+          echo 'harga="' . parseToXML($db['harga']) . '" ';
+          echo 'altitude="' . parseToXML($db['altitude']) . '" ';
+          echo 'latitude="' . parseToXML($db['latitude']) . '" ';
+          echo 'longitude="' . parseToXML($db['longitude']) . '" ';
+          echo 'rating="' . parseToXML($db['rating']) . '" ';
+          echo 'status="' . parseToXML($db['status']) . '" ';
+          $date = date_create($db['waktu_post']);
+          echo 'waktu="' . date_format($date, 'j F Y, \p\u\k\u\l G:i') . '" ';
+          echo '/>';
+       }
+     
+       // Akhir File XML (tag penutup node)
+       echo '</markers>';
+        }   
+  }
+
   /*
 	GET
 	Fungsi untuk mendapatkan semua data kontrakan

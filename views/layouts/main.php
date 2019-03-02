@@ -12,17 +12,13 @@ use app\assets\BackAsset;
 
 BackAsset::register($this);
 
-//$user=Yii::$app->user->identity->username;
-// $user=Yii::$app->user->identity->username;
-// $session = Yii::$app->session;
-
-// $role=Yii::$app->user->identity->role;
-// $id=Yii::$app->user->identity->id;
-// $profil = \common\models\User::find()
-// ->where(['id' => $id])
-// // ->orderBy('text DESC')
-// // ->limit(3)
-// ->one();
+$user=Yii::$app->user->identity->username;
+$role=Yii::$app->user->identity->role;
+$id_admin=Yii::$app->user->identity->id_admin;
+$foto=Yii::$app->user->identity->foto;
+$profil = \app\models\User::find()
+->where(['id_admin' => $id_admin])
+->one();
 ?>
 
 <?php $this->beginPage() ?>
@@ -48,7 +44,8 @@ BackAsset::register($this);
   <!-- Bagian Header Mulai-->
   <header class="main-header">
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="<?php echo Yii::$app->request->baseUrl; ?>/site" class="logo">
+    
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>AR</b>H</span>
       <!-- logo for regular state and mobile devices -->
@@ -109,18 +106,30 @@ BackAsset::register($this);
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <!-- <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image"> -->
-              <img src="<?= Yii::$app->request->baseUrl . '/AdminLTE/dist/img/user2-160x160.jpg' ?>" class="user-image" alt="User Image" >
-              <span class="hidden-xs">Alexander Pierce</span>
-            </a>
+
+                <?= empty($user->foto) ? 
+
+                    Html::img('@web/files/images/'.$foto, ['class' => 'user-image img-circle', 'alt' => 'User image']) :
+
+                    Html::img(\Yii::$app->params['frontendUrl'] . $user->foto, ['class' => 'user-image img-circle', 'alt' => 'User image']) ?>
+
+                <span class="hidden-xs"><?= $user; ?> </span>
+              </a>
+
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
                 <!-- <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image"> -->
-                <img src="<?= Yii::$app->request->baseUrl .'/AdminLTE/dist/img/user2-160x160.jpg' ?>" class="img-circle" alt="User Image">
+               
+                <?= empty($user->foto) ? 
+
+                    Html::img('@web/files/images/'.$foto, ['class' => 'img-circle', 'alt' => 'User image']) : 
+
+                    Html::img(\Yii::$app->params['frontendUrl'] . $user->foto, ['class' => 'user-image img-circle', 'alt' => 'User image']) ?>
+
                 <p>
-                  Alexander Pierce - Web Developer
-                  <small>Member since Nov. 2012</small>
+                  <?php echo $user ?>
+                  <small>Selamat Datang <?php echo $user ?></small>
                 </p>
               </li>
               <!-- Menu Footer-->
@@ -129,9 +138,7 @@ BackAsset::register($this);
                   <a href="#" class="btn btn-default btn-flat">Profil</a>
                 </div>
                 <div class="pull-right">
-
-                    <?= Html::a('Keluar', ['site/logout'], ['data-method' => 'POST']) ?>
-
+                   <?= Html::a('Logout', ['/site/logout'],['data-method' => 'post', 'class' => 'btn btn-default btn-flat']) ?>
                 </div>
               </li>
             </ul>
@@ -155,10 +162,14 @@ BackAsset::register($this);
       <div class="user-panel">
         <div class="pull-left image">
           <!-- <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image"> -->
-          <img src="<?= Yii::$app->request->baseUrl .'/AdminLTE/dist/img/user2-160x160.jpg' ?>" class="img-circle" alt="User Image">
+         <?= empty($user->foto) ? 
+
+                    Html::img('@web/files/images/'.$foto, ['class' => 'img-circle', 'alt' => 'User image']) :
+
+                    Html::img(\Yii::$app->params['frontendUrl'] . $user->foto, ['class' => 'img-circle', 'alt' => 'User image']) ?>
         </div>
         <div class="pull-left info">
-          <p>Alexander Pierce</p>
+          <p><?php echo $user ?></p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
@@ -250,13 +261,13 @@ BackAsset::register($this);
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Dashboard
+        ARHome
         <small>Control panel</small>
       </h1>
-      <ol class="breadcrumb">
+      <!-- <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Dashboard</li>
-      </ol>
+      </ol> -->
     </section>
 
     <!-- Main content -->

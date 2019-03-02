@@ -78,10 +78,10 @@ $this->params['breadcrumbs'][] = $this->title;
             <td><center> <?= $db['status'];?> </center></td>
 
             <td> <center>
-          <?= Html::a('<i class="fa fa-search"></i>', ['/kontrakan/view','id'=>$db['id_kontrakan']], ['class' => 'btn btn-warning']) ?>
-          <?= Html::a('<i class="fa fa-pencil"></i>', ['/kontrakan/update','id'=>$db['id_kontrakan']], ['class' => 'btn btn-info']) ?>
+          <?= Html::a('<i class="fa fa-search"></i>', ['/kontrakan/view','id'=>$db['id_kontrakan']], ['class' => 'btn btn-warning btn-xs']) ?>
+          <?= Html::a('<i class="fa fa-pencil"></i>', ['/kontrakan/update','id'=>$db['id_kontrakan']], ['class' => 'btn btn-info btn-xs']) ?>
           <?= Html::a('<i class="fa fa-trash"></i>', ['/kontrakan/delete', 'id' => $db['id_kontrakan']], [
-                    'class' => 'btn btn-danger',
+                    'class' => 'btn btn-danger btn-xs',
                     'data' => [
                     'confirm' => 'anda yakin mau menghapus "'.$db['nama'].'"?',
                     'method' => 'post',
