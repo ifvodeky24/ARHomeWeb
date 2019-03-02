@@ -22,20 +22,53 @@ use yii\widgets\ActiveForm;
       <form role="form">
         <div class="box-body">
           <div class="form-group">
+
+            <center>
+
+            <div class="input-group col-sm-8"> 
+                <span class="input-group-addon"><i class="fa fa-compass"></i></span>
             <?= $form->field($model, 'id_pengguna')->textInput(['maxlength' => true,'placeholder'=>'Masukkan Id Kontrakan','class'=>'form-control']) ?>
+            </div>
+
+            <br>
+
+            <div class="input-group col-sm-8"> 
+                <span class="input-group-addon"><i class="fa fa-compass"></i></span>
             <?= $form->field($model, 'id_kontrakan')->textInput(['maxlength' => true,'placeholder'=>'Masukkan Id Pengguna','class'=>'form-control']) ?>
+            </div>
+
+            <br>
+
+            <div class="input-group col-sm-8"> 
+                <span class="input-group-addon"><i class="fa fa-flag-o"></i></span>
             <?= $form->field($model, 'status')->dropDownList([ 'booking' => 'Booking', 'dalam pemesanan' => 'Dalam pemesanan', 'selesai' => 'Selesai', '' => '', ], ['prompt' => '']) ?>
+            </div>
+
+            <br>
+
+            <div class="input-group col-sm-8"> 
+                <span class="input-group-addon"><i class="fa fa-magic"></i></span>
             <?= $form->field($model, 'review')->textInput(['maxlength' => true,'placeholder'=>'Masukkan Review','class'=>'form-control']) ?>
+            </div>
+
+            <br>
+
+            <div class="input-group col-sm-8"> 
+                <span class="input-group-addon"><i class="fa fa-star"></i></span>
             <?= $form->field($model, 'rating')->textInput(['maxlength' => true,'placeholder'=>'Masukkan Rating','class'=>'form-control']) ?>
+            </div>
+
+            </center>
           </div>
 
         </div>
         <!-- /.box-body -->
-
-        <div class="box-footer">
-          <?= Html::submitButton($model->isNewRecord ? 'Tambah' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-  				<button type="reset" class="btn btn-inverse">Reset</button>
-        </div>
+        <center>
+          <div class="box-footer">
+            <?= Html::submitButton($model->isNewRecord ? 'Tambah' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+    				<button type="reset" class="btn btn-inverse">Reset</button>
+          </div>
+        </center>
       </form>
     </div>
     <!-- /.box -->

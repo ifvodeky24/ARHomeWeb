@@ -22,21 +22,59 @@ use yii\widgets\ActiveForm;
       <form role="form">
         <div class="box-body">
           <div class="form-group">
-            <?= $form->field($model, 'username')->textInput(['maxlength' => true,'placeholder'=>'Masukkan Username Anda','class'=>'form-control']) ?>
-            <?= $form->field($model, 'password')->passwordInput(['maxlength' => true,'placeholder'=>'Masukkan Password Anda','class'=>'form-control']) ?>
-            <?= $form->field($model, 'nama_lengkap')->textInput(['maxlength' => true,'placeholder'=>'Masukkan Nama Lengkap Anda','class'=>'form-control']) ?>
-            <?= $form->field($model, 'alamat')->textInput(['maxlength' => true,'placeholder'=>'Masukkan Alamat Anda','class'=>'form-control']) ?>
-            <?= $form->field($model, 'foto')->textInput(['maxlength' => true,'placeholder'=>'Masukkan Foto Anda','class'=>'form-control']) ?>
-            <?= $form->field($model, 'no_handphone')->textInput(['maxlength' => true,'placeholder'=>'Masukkan No Handphone Anda','class'=>'form-control']) ?>
-          </div>
 
+            <center>
+
+            <div class="input-group col-sm-8"> 
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+            <?= $form->field($model, 'username')->textInput(['maxlength' => true,'placeholder'=>'Masukkan Username Anda','class'=>'form-control']) ?>
+            </div>
+
+            <br>
+
+            <div class="input-group col-sm-8"> 
+                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+            <?= $form->field($model, 'password')->passwordInput(['maxlength' => true,'placeholder'=>'Masukkan Password Anda','class'=>'form-control']) ?>
+            </div>
+
+            <br>
+
+            <div class="input-group col-sm-8"> 
+                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+            <?= $form->field($model, 'nama_lengkap')->textInput(['maxlength' => true,'placeholder'=>'Masukkan Nama Lengkap Anda','class'=>'form-control']) ?>
+            </div>
+
+            <br>
+
+            <div class="input-group col-sm-8"> 
+                <span class="input-group-addon"><i class="fa fa-map"></i></span>
+            <?= $form->field($model, 'alamat')->textInput(['maxlength' => true,'placeholder'=>'Masukkan Alamat Anda','class'=>'form-control']) ?>
+            </div>
+
+            <br>
+
+            <div class="input-group col-sm-8"> 
+                <span class="input-group-addon"><i class="fa fa-photo"></i></span>
+            <?= $form->field($model, 'foto')->fileInput() ?>
+            </div>
+
+            <br>
+
+            <div class="input-group col-sm-8"> 
+                <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+            <?= $form->field($model, 'no_handphone')->textInput(['maxlength' => true,'placeholder'=>'Masukkan No Handphone Anda','class'=>'form-control']) ?>
+            </div>
+          </center>
+
+          </div>
         </div>
         <!-- /.box-body -->
-
-        <div class="box-footer">
-          <?= Html::submitButton($model->isNewRecord ? 'Tambah' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-  				<button type="reset" class="btn btn-inverse">Reset</button>
-        </div>
+        <center>
+          <div class="box-footer">
+            <?= Html::submitButton($model->isNewRecord ? 'Tambah' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+    				<button type="reset" class="btn btn-inverse">Reset</button>
+          </div>
+        </center>
       </form>
     </div>
     <!-- /.box -->

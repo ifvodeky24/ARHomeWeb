@@ -48,8 +48,8 @@ class PemesananKontrakan extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id_pemesanan_kontrakan' => 'Id Pemesanan Kontrakan',
-            'id_pengguna' => 'Id Pengguna',
+            'id_pemesanan_kontrakan.' => 'Id Pemesanan Kontrakan',
+            'pengguna' => 'Id Pengguna',
             'id_kontrakan' => 'Id Kontrakan',
             'status' => 'Status',
             'review' => 'Review',

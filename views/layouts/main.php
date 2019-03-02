@@ -264,10 +264,15 @@ $profil = \app\models\User::find()
         ARHome
         <small>Control panel</small>
       </h1>
-      <!-- <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
-      </ol> -->
+      <ol class="breadcrumb">
+       <!--  <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Dashboard</li> -->
+          <?= Breadcrumbs::widget([
+              'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+              ]) ?>
+              <?= Alert::widget() ?>
+
+        </ol>
     </section>
 
     <!-- Main content -->

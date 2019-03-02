@@ -22,30 +22,123 @@ use yii\widgets\ActiveForm;
       <form role="form">
         <div class="box-body">
           <div class="form-group">
-            <?= $form->field($model, 'nama')->textInput(['maxlength' => true,'placeholder'=>'Masukkan Nama Kos','class'=>'form-control']) ?>
+
+            <center>
+
+            <div class="input-group col-sm-8"> 
+                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                <?= $form->field($model, 'nama')->textInput(['maxlength' => true,'placeholder'=>'Masukkan Nama Kos','class'=>'form-control']) ?>
+            </div>
+
+            <br>
+            
+            <div class="input-group col-sm-8">
+                <span class="input-group-addon"><i class="fa fa-edit"></i></span>
             <?= $form->field($model, 'deskripsi')->textInput(['maxlength' => true,'placeholder'=>'Masukkan Deskripsi Kos','class'=>'form-control']) ?>
-            <?= $form->field($model, 'foto')->textInput(['maxlength' => true,'placeholder'=>'Masukkan Foto Kos','class'=>'form-control']) ?>
-            <?= $form->field($model, 'foto_2')->textInput(['maxlength' => true,'placeholder'=>'Masukkan Foto Kos 2','class'=>'form-control']) ?>
-            <?= $form->field($model, 'foto_3')->textInput(['maxlength' => true,'placeholder'=>'Masukkan Foto Kos 3','class'=>'form-control']) ?>
+            </div>
+
+            <br>
+
+            <div class="input-group col-sm-8">
+                <span class="input-group-addon"><i class="fa fa-photo"></i></span>
+            <?= $form->field($model, 'foto')->fileInput() ?>
+             </div>
+
+             <br>
+
+            <div class="input-group col-sm-8">
+                <span class="input-group-addon"><i class="fa fa-photo"></i></span>
+            <?= $form->field($model, 'foto_2')->fileInput() ?>
+             </div>
+
+             <br>
+
+            <div class="input-group col-sm-8">
+                <span class="input-group-addon"><i class="fa fa-photo"></i></span>
+            <?= $form->field($model, 'foto_3')->fileInput() ?>
+             </div>
+
+             <br>
+
+            <div class="input-group col-sm-8">
+                <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
             <?= $form->field($model, 'waktu_post')->textInput(['maxlength' => true,'placeholder'=>'Masukkan Waktu Post','class'=>'form-control']) ?>
+             </div>
+
+             <br>
+
+            <div class="input-group col-sm-8">
+                <span class="input-group-addon"><i class="fa fa-dot-circle-o"></i></span>
             <?= $form->field($model, 'id_pemilik')->textInput(['maxlength' => true,'placeholder'=>'Masukkan Id Pemilik','class'=>'form-control']) ?>
+             </div>
+
+             <br>
+
+            <div class="input-group col-sm-8">
+                <span class="input-group-addon"><i class="fa fa-compass"></i></span>
             <?= $form->field($model, 'latitude')->textInput(['maxlength' => true,'placeholder'=>'Masukkan Latitude','class'=>'form-control']) ?>
+             </div>
+
+             <br>
+
+            <div class="input-group col-sm-8">
+                <span class="input-group-addon"><i class="fa fa-compass"></i></span>
             <?= $form->field($model, 'longitude')->textInput(['maxlength' => true,'placeholder'=>'Masukkan Longitude','class'=>'form-control']) ?>
+             </div>
+
+             <br>
+
+            <div class="input-group col-sm-8">
+                <span class="input-group-addon"><i class="fa fa-compass"></i></span>
             <?= $form->field($model, 'altitude')->textInput(['maxlength' => true,'placeholder'=>'Masukkan Altitude','class'=>'form-control']) ?>
+             </div>
+
+             <br>
+
+            <div class="input-group col-sm-8">
+                <span class="input-group-addon"><i class="fa fa-money"></i></span>
             <?= $form->field($model, 'harga')->textInput(['maxlength' => true,'placeholder'=>'Masukkan Harga','class'=>'form-control']) ?>
+             </div>
+
+             <br>
+
+            <div class="input-group col-sm-8">
+                <span class="input-group-addon"><i class="fa fa-star"></i></span>
             <?= $form->field($model, 'rating')->textInput(['maxlength' => true,'placeholder'=>'Masukkan Rating','class'=>'form-control']) ?>
+             </div>
+
+             <br>
+
+            <div class="input-group col-sm-8">
+                <span class="input-group-addon"><i class="fa fa-flag-o"></i></span>
             <?= $form->field($model, 'status')->dropDownList([ 'tersedia' => 'Tersedia', 'tidak tersedia' => 'Tidak tersedia', 'tidak aktif' => 'Tidak aktif', ], ['prompt' => '']) ?>
+             </div>
+
+             <br>
+
+            <div class="input-group col-sm-8">
+                <span class="input-group-addon"><i class="fa fa-institution"></i></span>
             <?= $form->field($model, 'stok_kamar')->textInput(['maxlength' => true,'placeholder'=>'Masukkan Stok Kamar','class'=>'form-control']) ?>
-            <?= $form->field($model, 'jenis_kos')->dropDownList([ 'laki laki' => 'Laki laki', 'perempuan' => 'Perempuan', '' => '', ], ['prompt' => '']) ?>
-          </div>
+             </div>
+
+             <br>
+
+            <div class="input-group col-sm-8">
+                <span class="input-group-addon"><i class="fa fa-mars"></i></span>
+            <?= $form->field($model, 'jenis_kos')->dropDownList([ 'laki laki' => 'Laki laki', 'perempuan' => 'Perempuan', '' => '', ], ['prompt' => ''])->label(false) ?>
+            </div>
+
+            </center>
 
         </div>
         <!-- /.box-body -->
 
-        <div class="box-footer">
-          <?= Html::submitButton($model->isNewRecord ? 'Tambah' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-  				<button type="reset" class="btn btn-inverse">Reset</button>
-        </div>
+        <center>
+            <div class="box-footer">
+              <?= Html::submitButton($model->isNewRecord ? 'Tambah' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+      				<button type="reset" class="btn btn-inverse">Reset</button>
+            </div>
+        </center>
       </form>
     </div>
     <!-- /.box -->
