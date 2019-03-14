@@ -39,6 +39,7 @@ class Pengguna extends \yii\db\ActiveRecord
             [['password'], 'string', 'max' => 255],
             [['nama_lengkap'], 'string', 'max' => 40],
             [['no_handphone'], 'string', 'max' => 20],
+            [['status_memesan'], 'string'],
         ];
     }
 
@@ -55,6 +56,7 @@ class Pengguna extends \yii\db\ActiveRecord
             'alamat' => 'Alamat',
             'foto' => 'Foto',
             'no_handphone' => 'No Handphone',
+            'status_memesan' => "Status Memesan",
         ];
     }
 

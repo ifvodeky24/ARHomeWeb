@@ -34,7 +34,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'password',
             'nama_lengkap',
             'alamat',
-            'foto',
+            [
+                'label'=>'Foto',
+                'format'=>'raw',
+                'value' => function($data){
+                    $url = Yii::$app->getHomeUrl()."/files/pemilik/".$data['foto'];
+                    return Html::img($url,['alt'=>'Gambar Tidak Ada', 'class'=>'img-circle user-img', 'height'=>'100', 'width'=>'100', 'style'=>'object-fit: cover']);
+                }
+            ],
             'no_handphone',
         ],
     ]) ?>

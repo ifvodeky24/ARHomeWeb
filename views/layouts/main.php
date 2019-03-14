@@ -166,7 +166,7 @@ $profil = \app\models\User::find()
 
                     Html::img('@web/files/images/'.$foto, ['class' => 'img-circle', 'alt' => 'User image']) :
 
-                    Html::img(\Yii::$app->params['frontendUrl'] . $user->foto, ['class' => 'img-circle', 'alt' => 'User image']) ?>
+                    Html::img(\Yii::$app->params['frontendUrl'] . $user->foto, ['class' => 'img-circle','alt' => 'User image' ]) ?>
         </div>
         <div class="pull-left info">
           <p><?php echo $user ?></p>

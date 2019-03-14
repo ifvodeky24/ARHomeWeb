@@ -6,6 +6,7 @@ use app\models\PemesananKontrakan;
 use app\models\Kontrakan;
 use yii\rest\Controller;
 use yii\web\Response;
+use app\models\Pengguna;
 
 
 class PemesananKontrakanController extends Controller
@@ -54,7 +55,7 @@ class PemesananKontrakanController extends Controller
 	GET
 	Fungsi untuk mendapatkan data pemesanan kontrakan filter by id_pemilik dan status
 	*/
-  public function actionGetAllByPemilik($id_pemilik, $status){
+  public function actionGetAllByPemilik($id_pemilik){
     Yii::$app->response->format = Response::FORMAT_JSON;
 
     $response = null;
@@ -70,7 +71,7 @@ class PemesananKontrakanController extends Controller
 							WHERE tb_pemesanan_kontrakan.id_kontrakan = dt_kontrakan.id_kontrakan
 							AND dt_kontrakan.id_pemilik = tb_pemilik.id_pemilik
 							AND tb_pemilik.id_pemilik = '$id_pemilik'
-              AND tb_pemesanan_kontrakan.status = '$status'
+           
 							AND tb_pemesanan_kontrakan.id_pengguna = tb_pengguna.id_pengguna";
 
               $response['master'] = Yii::$app->db->createCommand($sql)->queryAll();;
@@ -82,7 +83,7 @@ class PemesananKontrakanController extends Controller
 	GET
 	Fungsi untuk melihat history data pemesanan kontrakan filter by id_pengguna dan status
 	*/
-  public function actionGetAllByPengguna($id_pengguna, $status){
+  public function actionGetAllByPengguna($id_pengguna){
     Yii::$app->response->format = Response::FORMAT_JSON;
 
     $response = null;
@@ -97,8 +98,7 @@ class PemesananKontrakanController extends Controller
 							FROM tb_pemesanan_kontrakan INNER JOIN dt_kontrakan, tb_pemilik, tb_pengguna
 							WHERE tb_pemesanan_kontrakan.id_kontrakan = dt_kontrakan.id_kontrakan
 							AND tb_pemesanan_kontrakan.id_pengguna = tb_pengguna.id_pengguna
-							AND tb_pengguna.id_pengguna = '$id_pengguna'
-              AND tb_pemesanan_kontrakan.status = '$status' ";
+							AND tb_pengguna.id_pengguna = '$id_pengguna' ";
 
               $response['master'] = Yii::$app->db->createCommand($sql)->queryAll();;
     }
@@ -107,9 +107,9 @@ class PemesananKontrakanController extends Controller
 
   /*
   CREATE
-  Fungsi untuk menambah pemesanan kontrakan
+  Fungsi untuk menambah pemesanan kontrakan / booking
   */
-  public function actionTambahPemesananKontrakan(){
+  public function actionBookingKontrakan(){
     Yii::$app->response->format = Response::FORMAT_JSON;
 
     $response = null;
@@ -119,37 +119,68 @@ class PemesananKontrakanController extends Controller
       // code...
       $id_pengguna = $data['id_pengguna'];
       $id_kontrakan = $data['id_kontrakan'];
-      $status = $data['status'];
-      $review = $data['review'];
-      $rating = $data['rating'];
+      // $status = $data['status'];
+      // $review = $data['review'];
+      // $rating = $data['rating'];
 
       //lakukan insert data
       $pemesanan_kontrakan = new PemesananKontrakan();
       $pemesanan_kontrakan->id_pengguna= $id_pengguna;
       $pemesanan_kontrakan->id_kontrakan= $id_kontrakan;
-      $pemesanan_kontrakan->status= $status;
-      $pemesanan_kontrakan->review= $review;
-      $pemesanan_kontrakan->rating= $rating;
+      $pemesanan_kontrakan->status= "booking";
+      $pemesanan_kontrakan->review= "";
+      $pemesanan_kontrakan->rating= 0;
 
-      if($pemesanan_kontrakan->save(false)){
-        //jika data berhasil disimpan
-        $response['code'] = 1;
-				$response['message'] = "Pemesanan Kontrakan Berhasil ditambah";
-				$response['data'] = $pemesanan_kontrakan;
+      $pengguna = Pengguna::find()
+      ->where(['id_pengguna' => $id_pengguna] )
+      ->one();
+
+	      if ($pengguna->status_memesan == 0) {
+	      	# code...
+	      	  if($pemesanan_kontrakan->save(false)){
+
+	      		$kontrakan = Kontrakan::find()
+							->where(['id_kontrakan' => $pemesanan_kontrakan->id_kontrakan])
+							->one();
+
+				$pengguna = Pengguna::find()
+							->where(['id_pengguna' =>  $pemesanan_kontrakan->id_pengguna])
+							->one();
+
+				$pengguna->status_memesan = 1;
+
+				$kontrakan->status = 'tidak tersedia';
+
+						// jika data berhasil diupdate
+						if ($kontrakan->save(false) && $pengguna->save(false)) {
+							$response['code'] = 1;
+							$response['message'] = "Pemesanan Kontrakan Berhasil dibooking";
+							$response['data'] = $pemesanan_kontrakan;
+						}else {
+							$response['code'] = 0;
+							$response['message'] = "Status kontrakan dan pengguna gagal update";
+							$response['data'] = null;
+						}
+	       
+	      }else{
+	        $response['code'] = 0;
+					$response['message'] = "Pemesanan Kontrakan Gagal ditambah";
+					$response['data'] = null;
+	      }
       }else{
-        $response['code'] = 0;
-				$response['message'] = "Pemesanan Kontrakan Gagal ditambah";
-				$response['data'] = null;
+      	$response['code'] = 0;
+					$response['message'] = "Anda masih dalam status memesan";
+					$response['data'] = null;
+	      }
       }
-    }
     	return $response;
   }
 
   /*
   UPDATE
-  Fungsi untuk update data status kontrakan dari booking menjadi dalam pemesanan
+  Fungsi untuk update data kontrakan dari booking menjadi dalam pemesanan
   */
-  public function actionUpdateStatusPemesananKontrakanDalamPemesanan() {
+  public function actionUpdatePemesananKontrakanDalamPemesanan() {
     Yii::$app->response->format = Response::FORMAT_JSON;
 
     $response = null;
@@ -158,54 +189,42 @@ class PemesananKontrakanController extends Controller
       $data = Yii::$app->request->Post();
 
       $id_pemesanan_kontrakan= $data['id_pemesanan_kontrakan'];
-      $status = $data['status'];
+      // $status = $data['status'];
 
       $pemesanan_kontrakan = PemesananKontrakan::find()
                       ->where(['id_pemesanan_kontrakan' => $id_pemesanan_kontrakan])
                       ->one();
 
-      if (isset($pemesanan_kontrakan)) {
-        // code...
-        $pemesanan_kontrakan->status= $status;
+	      if (isset($pemesanan_kontrakan)) {
+	        // code...
+	        $pemesanan_kontrakan->status= "dalam pemesanan";
 
-        if ($pemesanan_kontrakan->update(false)) {
-					$kontrakan = Kontrakan::find()
-									->where(['id_kontrakan' => $pemesanan_kontrakan->id_kontrakan])
-									->one();
-
-					$kontrakan->status = 'tidak tersedia';
-					// jika data berhasil diupdate
-					if ($kontrakan->update(false)) {
+	        if ($pemesanan_kontrakan->update(false)) {
 						$response['code'] = 1;
-						$response['message'] = "Status  pemesanan kontrakan berhasil diupdate menjadi dalam pemesanan";
-						$response['data'] = $pemesanan_kontrakan;
-					}else {
-						$response['code'] = 0;
-						$response['message'] = "Status  pemesanan kontrakan gagal diupdate menjadi dalam pemesanan";
-						$response['data'] = null;
-					}
+							$response['message'] = "Status  pemesanan kontrakan berhasil diupdate menjadi dalam pemesanan";
+							$response['data'] = $pemesanan_kontrakan;
 
-					}else {
-						$response['code'] = 0;
-						$response['message'] = "Update gagal";
-						$response['data'] = null;
-					}
-								}else {
-								$response['code'] = 0;
-								$response['message'] = "Data tidak ditemukan";
-								$response['data'] = null;
-								}
+						}else {
+							$response['code'] = 0;
+							$response['message'] = "Update gagal";
+							$response['data'] = null;
 						}
-	return $response;
+			}else {
+			$response['code'] = 0;
+			$response['message'] = "Data tidak ditemukan";
+			$response['data'] = null;
+			}
+		}
+return $response;
+
 	}
 
-
-
-	/*
+/*
   UPDATE
-  Fungsi untuk update data status kontrakan dari dalam pemesanan menjadi selesai
+  Fungsi untuk update menambahkan rating dan review kontrakan
   */
-  public function actionUpdateStatusPemesananKontrakanSelesai() {
+
+  public function actionUpdateRatingReviewKontrakan() {
     Yii::$app->response->format = Response::FORMAT_JSON;
 
     $response = null;
@@ -214,28 +233,78 @@ class PemesananKontrakanController extends Controller
       $data = Yii::$app->request->Post();
 
       $id_pemesanan_kontrakan= $data['id_pemesanan_kontrakan'];
-      $status = $data['status'];
-			$review = $data['review'];
+	  // $status = $data['status'];
+      $review = $data['review'];
       $rating = $data['rating'];
 
       $pemesanan_kontrakan = PemesananKontrakan::find()
                       ->where(['id_pemesanan_kontrakan' => $id_pemesanan_kontrakan])
                       ->one();
 
+		      if (isset($pemesanan_kontrakan)) {
+		        // code...
+		        $pemesanan_kontrakan->review= $review;
+		        $pemesanan_kontrakan->rating= $rating;
+
+		        if ($pemesanan_kontrakan->update(false)) {
+							$response['code'] = 1;
+		                    $response['message'] = "Rating dan Review Kontrakan berhasil ditambah";
+		                    $response['data'] = $pemesanan_kontrakan;
+
+		        }else {
+		          $response['code'] = 0;
+		  				$response['message'] = "Rating dan Review Kontrakan gagal ditambah";
+		  				$response['data'] = null;
+		        }
+		      }else {
+		        $response['code'] = 0;
+		        $response['message'] = "Data tidak ditemukan";
+		        $response['data'] = null;
+		      }
+	    }
+	    return $response;
+
+  }
+
+	/*
+  UPDATE
+  Fungsi untuk update data kontrakan dari dalam pemesanan menjadi selesai
+  */
+  public function actionUpdatePemesananKontrakanSelesai() {
+    Yii::$app->response->format = Response::FORMAT_JSON;
+
+    $response = null;
+
+    if (Yii::$app->request->isPost) {
+      $data = Yii::$app->request->Post();
+
+      $id_pemesanan_kontrakan= $data['id_pemesanan_kontrakan'];
+      // $status = $data['status'];
+	 
+      $pemesanan_kontrakan = PemesananKontrakan::find()
+                      ->where(['id_pemesanan_kontrakan' => $id_pemesanan_kontrakan])
+                      ->one();
+
       if (isset($pemesanan_kontrakan)) {
         // code...
-        $pemesanan_kontrakan->status= $status;
-				$pemesanan_kontrakan->review= $review;
-        $pemesanan_kontrakan->rating= $rating;
+        $pemesanan_kontrakan->status= "selesai";
 
+        $pengguna = Pengguna::find()
+                        ->where(['id_pengguna'=> $pemesanan_kontrakan->id_pengguna])
+                        ->one();
+
+        $pengguna->status_memesan = 0;
+
+        $kontrakan = Kontrakan::find()
+						->where(['id_kontrakan' => $pemesanan_kontrakan->id_kontrakan])
+						->one();
+
+		$kontrakan->status = 'tersedia';
+		
 				if ($pemesanan_kontrakan->update(false)) {
-					$kontrakan = Kontrakan::find()
-									->where(['id_kontrakan' => $pemesanan_kontrakan->id_kontrakan])
-									->one();
-
-					$kontrakan->status = 'tersedia';
+					
 					// jika data berhasil diupdate
-					if ($kontrakan->update(false)) {
+					if ($kontrakan->update(false) && $pengguna->update(false)) {
 						$response['code'] = 1;
 						$response['message'] = "Status  pemesanan kontrakan berhasil diupdate menjadi selesai";
 						$response['data'] = $pemesanan_kontrakan;
@@ -245,17 +314,17 @@ class PemesananKontrakanController extends Controller
 						$response['data'] = null;
 					}
 
-					}else {
-						$response['code'] = 0;
-						$response['message'] = "Update gagal";
-						$response['data'] = null;
-					}
-								}else {
-								$response['code'] = 0;
-								$response['message'] = "Data tidak ditemukan";
-								$response['data'] = null;
-								}
-					}
-			return $response;
+				}else {
+					$response['code'] = 0;
+					$response['message'] = "Update gagal";
+					$response['data'] = null;
+				}
+			}else {
+			$response['code'] = 0;
+			$response['message'] = "Data tidak ditemukan";
+			$response['data'] = null;
 			}
+		}
+	return $response;
+	}
 }

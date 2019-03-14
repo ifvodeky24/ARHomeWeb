@@ -2,7 +2,8 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveRecord;
+use yii\web\IdentityInterface;
 
 /**
  * This is the model class for table "tb_admin".
@@ -15,43 +16,39 @@ use Yii;
  * @property string $role
  * @property string $foto
  */
-class Admin extends \yii\db\ActiveRecord
+
+class User extends ActiveRecord implements IdentityInterface
 {
-    /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
-    {
-        return 'tb_admin';
+    const ADMIN = "Admin";
+    const SUPER_ADMIN = "SuperAdmin";
+
+    public static function tableName(){
+      return 'tb_admin';
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function rules()
-    {
-        return [
-            [['username', 'password', 'authKey', 'accesToken', 'role', 'foto'], 'required'],
-            [['role'], 'string'],
-            [['username'], 'string', 'max' => 30],
-            [['password', 'foto'], 'string', 'max' => 255],
-            [['authKey', 'accesToken'], 'string', 'max' => 50],
-        ];
+    public function rules(){
+      return[
+        [['username', 'password', 'authKey', 'accessToken', 'role', 'foto'], 'required'],
+        [['role'], 'string'],
+        [['username'], 'string', 'max' => 30],
+        [['password'], 'string', 'max' => 255],
+        [['authKey', 'accessToken'], 'string', 'max' => 50],
+        [['foto'],'file','extensions' => 'jpeg, jpeg, png', 'maxSize' => 1024*
+          1024*1,'on' => 'create'],
+      ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id_admin' => 'Id Admin',
-            'username' => 'Username',
-            'password' => 'Password',
-            'authKey' => 'Auth Key',
-            'accesToken' => 'Acces Token',
-            'role' => 'Role',
-            'foto' => 'Foto',
-        ];
+    public function attributeLabels(){
+      return[
+        'id_admin'   => 'Id Admin',
+        'username'   => 'Username',
+        'password'   => 'Password',
+        'authKey'    => 'Auth Key',
+        'accessToken'=> 'Access Token',
+        'role'       => 'Role',
+        'foto'       => 'Foto Profil',
+      ];
     }
-}
+
+
+    

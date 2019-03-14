@@ -88,7 +88,8 @@ class KontrakanController extends Controller
 		if (Yii::$app->request->isGet){
 
 			// select * from tb_kontrakan
-			$kontrakan = Kontrakan::find()->all();
+			$kontrakan = Kontrakan::find()->
+        where(['status'=>'tersedia'])->all();
 
 			$response['master'] = $kontrakan;
 		}

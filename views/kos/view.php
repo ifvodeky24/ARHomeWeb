@@ -32,9 +32,30 @@ $this->params['breadcrumbs'][] = $this->title;
             'id_kos',
             'nama',
             'deskripsi',
-            'foto',
-            'foto_2',
-            'foto_3',
+            [
+                'label'=>'Foto',
+                'format'=>'raw',
+                'value' => function($data){
+                    $url = Yii::$app->getHomeUrl()."/files/kos/".$data['foto'];
+                    return Html::img($url,['alt'=>'404', 'class'=>'img-circle user-img', 'height'=>'100', 'width'=>'100', 'style'=>'object-fit: cover']);
+                }
+            ],
+            [
+                'label'=>'Foto 2',
+                'format'=>'raw',
+                'value' => function($data){
+                    $url = Yii::$app->getHomeUrl()."/files/kos/".$data['foto_2'];
+                    return Html::img($url,['alt'=>'Gambar Tidak Ada', 'class'=>'img-circle user-img', 'height'=>'100', 'width'=>'100', 'style'=>'object-fit: cover']);
+                }
+            ],
+            [
+                'label'=>'Foto 3',
+                'format'=>'raw',
+                'value' => function($data){
+                    $url = Yii::$app->getHomeUrl()."/files/kos/".$data['foto_3'];
+                    return Html::img($url,['alt'=>'Gambar Tidak Ada', 'class'=>'img-circle user-img', 'height'=>'100', 'width'=>'100', 'style'=>'object-fit: cover']);
+                }
+            ],
             'waktu_post',
             'pemilik.nama_lengkap',
             'latitude',
