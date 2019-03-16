@@ -21,6 +21,10 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'deskripsi') ?>
 
+    <?= $form->field($model, 'alamat') ?>
+
+    <?= $form->field($model, 'fasilitas') ?>
+
     <?= $form->field($model, 'foto') ?>
 
     <?= $form->field($model, 'foto_2') ?>

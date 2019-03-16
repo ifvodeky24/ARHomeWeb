@@ -40,8 +40,22 @@ use yii\widgets\ActiveForm;
             <br>
 
             <div class="input-group col-sm-8"> 
+                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+            <?= $form->field($model, 'email')->textInput(['maxlength' => true,'placeholder'=>'Masukkan Email Anda','class'=>'form-control']) ?>
+            </div>
+
+            <br>
+
+            <div class="input-group col-sm-8"> 
                 <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
             <?= $form->field($model, 'nama_lengkap')->textInput(['maxlength' => true,'placeholder'=>'Masukkan Nama Lengkap Anda','class'=>'form-control']) ?>
+            </div>
+
+            <br>
+
+            <div class="input-group col-sm-8"> 
+                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+            <?= $form->field($model, 'no_kk')->passwordInput(['maxlength' => true,'placeholder'=>'Masukkan Nomor KK Anda','class'=>'form-control']) ?>
             </div>
 
             <br>

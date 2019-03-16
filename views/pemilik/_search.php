@@ -21,7 +21,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'password') ?>
 
+    <?= $form->field($model, 'email') ?>
+
     <?= $form->field($model, 'nama_lengkap') ?>
+
+    <?= $form->field($model, 'no_kk') ?>
 
     <?= $form->field($model, 'alamat') ?>
 

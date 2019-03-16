@@ -74,7 +74,9 @@ class PemesananKosController extends Controller
 							AND dt_kos.id_pemilik = tb_pemilik.id_pemilik
 							AND tb_pemilik.id_pemilik = '$id_pemilik'
        
-							AND tb_pemesanan_kos.id_pengguna = tb_pengguna.id_pengguna";
+							AND tb_pemesanan_kos.id_pengguna = tb_pengguna.id_pengguna
+
+              GROUP BY tb_pemesanan_kos.id_pemesanan_kos";
 
               $response['master'] = Yii::$app->db->createCommand($sql)->queryAll();;
     }
@@ -101,7 +103,9 @@ class PemesananKosController extends Controller
 							FROM tb_pemesanan_kos INNER JOIN dt_kos, tb_pemilik, tb_pengguna
 							WHERE tb_pemesanan_kos.id_kos = dt_kos.id_kos
 							AND tb_pemesanan_kos.id_pengguna = tb_pengguna.id_pengguna
-							AND tb_pengguna.id_pengguna = '$id_pengguna' ";
+							AND tb_pengguna.id_pengguna = '$id_pengguna' 
+
+              GROUP BY tb_pemesanan_kos.id_pemesanan_kos";
 
               $response['master'] = Yii::$app->db->createCommand($sql)->queryAll();;
     }

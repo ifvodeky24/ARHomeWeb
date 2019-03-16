@@ -108,7 +108,7 @@ class KontrakanController extends Controller
 
 		if (Yii::$app->request->isGet){
 
-			$sql = "SELECT dt_kontrakan.id_kontrakan, dt_kontrakan.nama, dt_kontrakan.deskripsi, dt_kontrakan.foto, dt_kontrakan.waktu_post, dt_kontrakan.id_pemilik, dt_kontrakan.latitude, dt_kontrakan.longitude, dt_kontrakan.altitude, dt_kontrakan.harga, dt_kontrakan.rating, dt_kontrakan.status,
+			$sql = "SELECT dt_kontrakan.id_kontrakan, dt_kontrakan.nama, dt_kontrakan.deskripsi, dt_kontrakan.alamat, dt_kontrakan.fasilitas, dt_kontrakan.foto, dt_kontrakan.waktu_post, dt_kontrakan.id_pemilik, dt_kontrakan.latitude, dt_kontrakan.longitude, dt_kontrakan.altitude, dt_kontrakan.harga, dt_kontrakan.rating, dt_kontrakan.status,
                     (((acos(sin(('$myLat'*pi()/180))
                     * sin((`latitude`*pi()/180))+cos(('$myLat'*pi()/180))
                     * cos((`latitude`*pi()/180)) * cos((('$myLng'-`longitude`)
@@ -134,7 +134,7 @@ class KontrakanController extends Controller
 
     if (Yii::$app->request->isGet) {
       // code...
-       $sql = "SELECT dt_kontrakan.id_kontrakan, dt_kontrakan.deskripsi as deskripsi_kontrakan, dt_kontrakan.foto as foto_kontrakan_1, dt_kontrakan.foto_2 as foto_kontrakan_2, 
+       $sql = "SELECT dt_kontrakan.id_kontrakan, dt_kontrakan.deskripsi as deskripsi_kontrakan, dt_kontrakan.alamat as alamat_kontrakan, dt_kontrakan.fasilitas as fasilitas_kontrakan, dt_kontrakan.foto as foto_kontrakan_1, dt_kontrakan.foto_2 as foto_kontrakan_2, 
               dt_kontrakan.foto_3 as foto_kontrakan_3, dt_kontrakan.harga as harga_kontrakan, dt_kontrakan.altitude, dt_kontrakan.latitude, dt_kontrakan.longitude, dt_kontrakan.nama as nama_kontrakan, dt_kontrakan.rating as rating_kontrakan, dt_kontrakan.status as status_kontrakan, dt_kontrakan.waktu_post,
               
               tb_pemilik.id_pemilik, tb_pemilik.nama_lengkap as nama_lengkap_pemilik, tb_pemilik.no_handphone as no_handphone_pemilik, tb_pemilik.foto as foto_pemilik, tb_pemilik.alamat as alamat_pemilik
@@ -163,6 +163,8 @@ class KontrakanController extends Controller
       // code...
       $nama = $data['nama'];
       $deskripsi = $data['deskripsi'];
+      $alamat = $data['alamat'];
+      $fasilitas = $data['fasilitas'];
       $foto = $data['foto'];
       $foto_2 = $data['foto_2'];
       $foto_3 = $data['foto_3'];
@@ -170,7 +172,7 @@ class KontrakanController extends Controller
       $id_pemilik = $data['id_pemilik'];
       $latitude = $data['latitude'];
       $longitude = $data['longitude'];
-      $altitude = $data['altitude'];
+      $altitude = '0';
       $harga = $data['harga'];
       $rating = '0';
       $status = 'tidak aktif';
@@ -179,6 +181,8 @@ class KontrakanController extends Controller
       $kontrakan = new Kontrakan();
       $kontrakan->nama= $nama;
       $kontrakan->deskripsi= $deskripsi;
+      $kontrakan->alamat= $alamat;
+      $kontrakan->fasilitas= $fasilitas;
       $kontrakan->foto= $foto;
       $kontrakan->foto_2= $foto_2;
       $kontrakan->foto_3= $foto_3;
@@ -220,6 +224,8 @@ class KontrakanController extends Controller
       $id_kontrakan= $data['id_kontrakan'];
       $nama = $data['nama'];
       $deskripsi = $data['deskripsi'];
+      $alamat = $data['alamat'];
+      $fasilitas = $data['fasilitas'];
       $foto = $data['foto'];
       $waktu_post = $data['waktu_post'];
       $id_pemilik = $data['id_pemilik'];
@@ -238,6 +244,8 @@ class KontrakanController extends Controller
         // code...
         $kontrakan->nama= $nama;
         $kontrakan->deskripsi= $deskripsi;
+        $kontrakan->alamat= $alamat;
+        $kontrakan->fasilitas= $fasilitas;
         $kontrakan->foto= $foto;
         $kontrakan->waktu_post= $waktu_post;
         $kontrakan->id_pemilik= $id_pemilik;

@@ -10,6 +10,8 @@ use Yii;
  * @property int $id_kontrakan
  * @property string $nama
  * @property string $deskripsi
+ * @property string $alamat
+ * @property string $fasilitas
  * @property string $foto
  * @property string $foto_2
  * @property string $foto_3
@@ -41,13 +43,14 @@ class Kontrakan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama', 'deskripsi', 'foto', 'id_pemilik', 'latitude', 'longitude', 'altitude', 'harga', 'rating', 'status'], 'required'],
+            [['nama', 'deskripsi', 'alamat', 'fasilitas', 'foto', 'id_pemilik', 'latitude', 'longitude', 'altitude', 'harga', 'rating', 'status'], 'required'],
             [['waktu_post'], 'safe'],
             [['id_pemilik', 'harga', 'rating'], 'integer'],
             [['latitude', 'longitude', 'altitude'], 'number'],
             [['status'], 'string'],
             [['nama', 'foto', 'foto_2', 'foto_3'], 'string', 'max' => 30],
             [['deskripsi'], 'string', 'max' => 100],
+            [['alamat', 'fasilitas'], 'string', 'max' => 50],
             [['id_pemilik'], 'exist', 'skipOnError' => true, 'targetClass' => Pemilik::className(), 'targetAttribute' => ['id_pemilik' => 'id_pemilik']],
         ];
     }
@@ -61,6 +64,8 @@ class Kontrakan extends \yii\db\ActiveRecord
             'id_kontrakan' => 'Id Kontrakan',
             'nama' => 'Nama',
             'deskripsi' => 'Deskripsi',
+            'alamat' => 'Alamat',
+            'fasilitas' => 'Fasilitas',
             'foto' => 'Foto',
             'foto_2' => 'Foto 2',
             'foto_3' => 'Foto 3',
@@ -91,3 +96,4 @@ class Kontrakan extends \yii\db\ActiveRecord
         return $this->hasMany(PemesananKontrakan::className(), ['id_kontrakan' => 'id_kontrakan']);
     }
 }
+

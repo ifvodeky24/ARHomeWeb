@@ -106,6 +106,7 @@ class PenggunaController extends Controller
       // code...
       $username = $data['username'];
       $password = $data['password'];
+      $email = $data['email'];
       $nama_lengkap = $data['nama_lengkap'];
       $alamat = $data['alamat'];
       $foto = $data['foto'];
@@ -116,12 +117,13 @@ class PenggunaController extends Controller
       $pengguna = new Pengguna();
       $pengguna->username= $username;
       $pengguna->password= $password;
+      $pengguna->email= $email;
       $pengguna->nama_lengkap= $nama_lengkap;
       $pengguna->alamat= $alamat;
       $pengguna->foto= $foto;
       $pengguna->no_handphone= $no_handphone;
 
-      if($pengguna->save()){
+      if($pengguna->save(false)){
         //jika data berhasil disimpan
         $response['code'] = 1;
 				$response['message'] = "Registrasi berhasil";
@@ -150,6 +152,7 @@ class PenggunaController extends Controller
       $id_pengguna= $data['id_pengguna'];
       $username = $data['username'];
       $password = $data['password'];
+      $email = $data['email'];
       $nama_lengkap = $data['nama_lengkap'];
       $alamat = $data['alamat'];
       $foto = $data['foto'];
@@ -163,12 +166,13 @@ class PenggunaController extends Controller
         // code...
         $pengguna->username= $username;
         $pengguna->password= $password;
+        $pengguna->email= $email;
         $pengguna->nama_lengkap= $nama_lengkap;
         $pengguna->alamat= $alamat;
         $pengguna->foto= $foto;
         $pengguna->no_handphone= $no_handphone;
 
-        if ($pengguna->update()) {
+        if ($pengguna->update(false)) {
           // jika data berhasil diupdate
           $response['code'] = 1;
   				$response['message'] = "Update berhasil";

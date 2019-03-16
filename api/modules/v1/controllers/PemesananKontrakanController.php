@@ -72,7 +72,9 @@ class PemesananKontrakanController extends Controller
 							AND dt_kontrakan.id_pemilik = tb_pemilik.id_pemilik
 							AND tb_pemilik.id_pemilik = '$id_pemilik'
            
-							AND tb_pemesanan_kontrakan.id_pengguna = tb_pengguna.id_pengguna";
+							AND tb_pemesanan_kontrakan.id_pengguna = tb_pengguna.id_pengguna
+
+							GROUP BY tb_pemesanan_kontrakan.id_pemesanan_kontrakan";
 
               $response['master'] = Yii::$app->db->createCommand($sql)->queryAll();;
     }
@@ -98,7 +100,9 @@ class PemesananKontrakanController extends Controller
 							FROM tb_pemesanan_kontrakan INNER JOIN dt_kontrakan, tb_pemilik, tb_pengguna
 							WHERE tb_pemesanan_kontrakan.id_kontrakan = dt_kontrakan.id_kontrakan
 							AND tb_pemesanan_kontrakan.id_pengguna = tb_pengguna.id_pengguna
-							AND tb_pengguna.id_pengguna = '$id_pengguna' ";
+							AND tb_pengguna.id_pengguna = '$id_pengguna' 
+
+							GROUP BY tb_pemesanan_kontrakan.id_pemesanan_kontrakan";
 
               $response['master'] = Yii::$app->db->createCommand($sql)->queryAll();;
     }

@@ -10,13 +10,15 @@ use Yii;
  * @property int $id_pemilik
  * @property string $username
  * @property string $password
+ * @property string $email
  * @property string $nama_lengkap
+ * @property int $no_kk
  * @property string $alamat
  * @property string $foto
  * @property string $no_handphone
  *
- * @property DtKontrakan[] $dtKontrakans
- * @property DtKos[] $dtKos
+ * @property Kontrakan[] $Kontrakan
+ * @property Kos[] $Kos
  */
 class Pemilik extends \yii\db\ActiveRecord
 {
@@ -34,8 +36,9 @@ class Pemilik extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['username', 'password', 'nama_lengkap', 'alamat', 'foto', 'no_handphone'], 'required'],
-            [['username', 'alamat', 'foto'], 'string', 'max' => 30],
+            [['username', 'password', 'email', 'nama_lengkap', 'alamat', 'foto', 'no_handphone'], 'required'],
+            [['no_kk'], 'integer'],
+            [['username', 'email', 'alamat', 'foto'], 'string', 'max' => 30],
             [['password'], 'string', 'max' => 255],
             [['nama_lengkap'], 'string', 'max' => 40],
             [['no_handphone'], 'string', 'max' => 20],
@@ -51,7 +54,9 @@ class Pemilik extends \yii\db\ActiveRecord
             'id_pemilik' => 'Id Pemilik',
             'username' => 'Username',
             'password' => 'Password',
-            'nama_lengkap' => 'Nama Pemilik',
+            'email' => 'Email',
+            'nama_lengkap' => 'Nama Lengkap',
+            'no_kk' => 'No Kk',
             'alamat' => 'Alamat',
             'foto' => 'Foto',
             'no_handphone' => 'No Handphone',
@@ -61,7 +66,7 @@ class Pemilik extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getDtKontrakans()
+    public function getKontrakan()
     {
         return $this->hasMany(Kontrakan::className(), ['id_pemilik' => 'id_pemilik']);
     }
@@ -69,7 +74,7 @@ class Pemilik extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getDtKos()
+    public function getKos()
     {
         return $this->hasMany(Kos::className(), ['id_pemilik' => 'id_pemilik']);
     }

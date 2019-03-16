@@ -39,6 +39,20 @@ use yii\widgets\ActiveForm;
 
             <br>
 
+            <div class="input-group col-sm-8"> 
+                <span class="input-group-addon"><i class="fa fa-edit"></i></span>
+            <?= $form->field($model, 'alamat')->textInput(['maxlength' => true,'placeholder'=>'Masukkan Alamat Kontrakan','class'=>'form-control']) ?>
+            </div>
+
+            <br>
+
+            <div class="input-group col-sm-8"> 
+                <span class="input-group-addon"><i class="fa fa-edit"></i></span>
+            <?= $form->field($model, 'fasilitas')->textInput(['maxlength' => true,'placeholder'=>'Masukkan Fasilitas Kontrakan','class'=>'form-control']) ?>
+            </div>
+
+            <br>
+
              <div class="input-group col-sm-8">
                 <span class="input-group-addon"><i class="fa fa-photo"></i></span>
             <?= $form->field($model, 'foto')->fileInput() ?>

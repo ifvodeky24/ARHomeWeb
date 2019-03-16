@@ -32,6 +32,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'id_kos',
             'nama',
             'deskripsi',
+            'alamat',
+            'fasilitas',
             [
                 'label'=>'Foto',
                 'format'=>'raw',

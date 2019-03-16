@@ -10,6 +10,8 @@ use Yii;
  * @property int $id_kos
  * @property string $nama
  * @property string $deskripsi
+ * @property string $alamat
+ * @property string $fasilitas
  * @property string $foto
  * @property string $foto_2
  * @property string $foto_3
@@ -43,13 +45,14 @@ class Kos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama', 'deskripsi', 'foto', 'id_pemilik', 'latitude', 'longitude', 'altitude', 'harga', 'rating', 'status', 'stok_kamar', 'jenis_kos'], 'required'],
+            [['nama', 'deskripsi', 'alamat', 'fasilitas', 'foto', 'id_pemilik', 'latitude', 'longitude', 'altitude', 'harga', 'rating', 'status', 'stok_kamar', 'jenis_kos'], 'required'],
             [['waktu_post'], 'safe'],
             [['id_pemilik', 'harga', 'rating', 'stok_kamar'], 'integer'],
             [['latitude', 'longitude', 'altitude'], 'number'],
             [['status', 'jenis_kos'], 'string'],
             [['nama', 'foto', 'foto_2', 'foto_3'], 'string', 'max' => 30],
             [['deskripsi'], 'string', 'max' => 100],
+            [['alamat', 'fasilitas'], 'string', 'max' => 50],
             [['id_pemilik'], 'exist', 'skipOnError' => true, 'targetClass' => Pemilik::className(), 'targetAttribute' => ['id_pemilik' => 'id_pemilik']],
         ];
     }
@@ -63,6 +66,8 @@ class Kos extends \yii\db\ActiveRecord
             'id_kos' => 'Id Kos',
             'nama' => 'Nama',
             'deskripsi' => 'Deskripsi',
+            'alamat' => 'Alamat',
+            'fasilitas' => 'Fasilitas',
             'foto' => 'Foto',
             'foto_2' => 'Foto 2',
             'foto_3' => 'Foto 3',

@@ -32,6 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'id_pengguna',
             'username',
             'password',
+            'email',
             'nama_lengkap',
             'alamat',
             [

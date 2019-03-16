@@ -105,7 +105,9 @@ class PemilikController extends Controller
       // code...
       $username = $data['username'];
       $password = $data['password'];
+      $email = $data['email'];
       $nama_lengkap = $data['nama_lengkap'];
+      $no_kk = $data['no_kk'];
       $alamat = $data['alamat'];
       $foto = $data['foto'];
       $no_handphone = $data['no_handphone'];
@@ -115,12 +117,14 @@ class PemilikController extends Controller
       $pemilik = new Pemilik();
       $pemilik->username= $username;
       $pemilik->password= $password;
+      $pemilik->email= $email;
       $pemilik->nama_lengkap= $nama_lengkap;
+      $pemilik->no_kk= $no_kk;
       $pemilik->alamat= $alamat;
       $pemilik->foto= $foto;
       $pemilik->no_handphone= $no_handphone;
 
-      if($pemilik->save()){
+      if($pemilik->save(false)){
         //jika data berhasil disimpan
         $response['code'] = 1;
 				$response['message'] = "Registrasi berhasil";
@@ -149,7 +153,9 @@ class PemilikController extends Controller
       $id_pemilik= $data['id_pemilik'];
       $username = $data['username'];
       $password = $data['password'];
+      $email = $data['email'];
       $nama_lengkap = $data['nama_lengkap'];
+      $no_kk = $data['no_kk'];
       $alamat = $data['alamat'];
       $foto = $data['foto'];
       $no_handphone = $data['no_handphone'];
@@ -162,12 +168,14 @@ class PemilikController extends Controller
         // code...
         $pemilik->username= $username;
         $pemilik->password= $password;
+        $pemilik->email= $email;
         $pemilik->nama_lengkap= $nama_lengkap;
+        $pemilik->no_kk= $no_kk;
         $pemilik->alamat= $alamat;
         $pemilik->foto= $foto;
         $pemilik->no_handphone= $no_handphone;
 
-        if ($pemilik->update()) {
+        if ($pemilik->update(false)) {
           // jika data berhasil diupdate
           $response['code'] = 1;
   				$response['message'] = "Update berhasil";

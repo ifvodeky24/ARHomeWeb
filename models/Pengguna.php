@@ -10,13 +10,15 @@ use Yii;
  * @property int $id_pengguna
  * @property string $username
  * @property string $password
+ * @property string $email
  * @property string $nama_lengkap
  * @property string $alamat
  * @property string $foto
  * @property string $no_handphone
+ * @property string $status_memesan
  *
- * @property TbPemesananKontrakan[] $tbPemesananKontrakans
- * @property TbPemesananKos[] $tbPemesananKos
+ * @property PemesananKontrakan[] $PemesananKontrakan
+ * @property PemesananKos[] $PemesananKos
  */
 class Pengguna extends \yii\db\ActiveRecord
 {
@@ -34,12 +36,12 @@ class Pengguna extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['username', 'password', 'nama_lengkap', 'alamat', 'foto', 'no_handphone'], 'required'],
-            [['username', 'alamat', 'foto'], 'string', 'max' => 30],
+            [['username', 'password', 'email', 'nama_lengkap', 'alamat', 'foto', 'no_handphone'], 'required'],
+            [['status_memesan'], 'string'],
+            [['username', 'email', 'alamat', 'foto'], 'string', 'max' => 30],
             [['password'], 'string', 'max' => 255],
             [['nama_lengkap'], 'string', 'max' => 40],
             [['no_handphone'], 'string', 'max' => 20],
-            [['status_memesan'], 'string'],
         ];
     }
 
@@ -52,18 +54,19 @@ class Pengguna extends \yii\db\ActiveRecord
             'id_pengguna' => 'Id Pengguna',
             'username' => 'Username',
             'password' => 'Password',
-            'nama_lengkap' => 'Nama Pengguna',
+            'email' => 'Email',
+            'nama_lengkap' => 'Nama Lengkap',
             'alamat' => 'Alamat',
             'foto' => 'Foto',
             'no_handphone' => 'No Handphone',
-            'status_memesan' => "Status Memesan",
+            'status_memesan' => 'Status Memesan',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTbPemesananKontrakans()
+    public function getPemesananKontrakan()
     {
         return $this->hasMany(PemesananKontrakan::className(), ['id_pengguna' => 'id_pengguna']);
     }
@@ -71,7 +74,7 @@ class Pengguna extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTbPemesananKos()
+    public function getPemesananKos()
     {
         return $this->hasMany(PemesananKos::className(), ['id_pengguna' => 'id_pengguna']);
     }

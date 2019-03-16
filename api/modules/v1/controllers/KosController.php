@@ -42,7 +42,7 @@ class KosController extends Controller
 
 		if (Yii::$app->request->isGet){
 
-			$sql = "SELECT dt_kos.id_kos, dt_kos.nama, dt_kos.deskripsi, dt_kos.foto, dt_kos.waktu_post, dt_kos.id_pemilik, dt_kos.latitude, dt_kos.longitude, dt_kos.altitude, dt_kos.harga, dt_kos.rating, dt_kos.status, dt_kos.stok_kamar, dt_kos.jenis_kos,
+			$sql = "SELECT dt_kos.id_kos, dt_kos.nama, dt_kos.deskripsi, dt_kos.alamat, dt_kos.fasilitas, dt_kos.foto, dt_kos.waktu_post, dt_kos.id_pemilik, dt_kos.latitude, dt_kos.longitude, dt_kos.altitude, dt_kos.harga, dt_kos.rating, dt_kos.status, dt_kos.stok_kamar, dt_kos.jenis_kos,
                     (((acos(sin(('$myLat'*pi()/180))
                     * sin((`latitude`*pi()/180))+cos(('$myLat'*pi()/180))
                     * cos((`latitude`*pi()/180)) * cos((('$myLng'-`longitude`)
@@ -68,7 +68,7 @@ class KosController extends Controller
 
     if (Yii::$app->request->isGet) {
       // code...
-     $sql = "SELECT dt_kos.id_kos, dt_kos.deskripsi as deskripsi_kos, dt_kos.foto as foto_kos_1, dt_kos.foto_2 as foto_kos_2, 
+     $sql = "SELECT dt_kos.id_kos, dt_kos.deskripsi as deskripsi_kos, dt_kos.alamat as alamat_kos, dt_kos.fasilitas as fasilitas_kos, dt_kos.foto as foto_kos_1, dt_kos.foto_2 as foto_kos_2, 
               dt_kos.foto_3 as foto_kos_3, dt_kos.harga as harga_kos, dt_kos.altitude, dt_kos.latitude, dt_kos.longitude, dt_kos.nama as nama_kos, dt_kos.rating as rating_kos, dt_kos.status as status_kos, dt_kos.waktu_post, dt_kos.jenis_kos, dt_kos.stok_kamar,
               
               tb_pemilik.id_pemilik, tb_pemilik.nama_lengkap as nama_lengkap_pemilik, tb_pemilik.no_handphone as no_handphone_pemilik, tb_pemilik.foto as foto_pemilik, tb_pemilik.alamat as alamat_pemilik
@@ -96,6 +96,8 @@ class KosController extends Controller
       // code...
       $nama = $data['nama'];
       $deskripsi = $data['deskripsi'];
+      $alamat = $data['alamat'];
+      $fasilitas = $data['fasilitas'];
       $foto = $data['foto'];
       $foto_2 = $data['foto_2'];
       $foto_3 = $data['foto_3'];
@@ -103,7 +105,7 @@ class KosController extends Controller
       $id_pemilik = $data['id_pemilik'];
       $latitude = $data['latitude'];
       $longitude = $data['longitude'];
-      $altitude = $data['altitude'];
+      $altitude = '0';
       $harga = $data['harga'];
       $rating = '0';
       $status = 'tidak aktif';
@@ -114,6 +116,8 @@ class KosController extends Controller
       $kos = new Kos();
       $kos->nama= $nama;
       $kos->deskripsi= $deskripsi;
+      $kos->alamat= $alamat;
+      $kos->fasilitas= $fasilitas;
       $kos->foto= $foto;
       $kos->foto_2= $foto_2;
       $kos->foto_3= $foto_3;
@@ -157,6 +161,8 @@ class KosController extends Controller
       $id_kos= $data['id_kos'];
       $nama = $data['nama'];
       $deskripsi = $data['deskripsi'];
+      $alamat = $data['alamat'];
+      $fasilitas = $data['fasilitas'];
       $foto = $data['foto'];
       $waktu_post = $data['waktu_post'];
       $id_pemilik = $data['id_pemilik'];
@@ -177,6 +183,8 @@ class KosController extends Controller
         // code...
         $kos->nama= $nama;
         $kos->deskripsi= $deskripsi;
+        $kos->alamat= $alamat;
+        $kos->fasilitas= $fasilitas;
         $kos->foto= $foto;
         $kos->waktu_post= $waktu_post;
         $kos->id_pemilik= $id_pemilik;

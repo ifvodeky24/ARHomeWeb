@@ -32,6 +32,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'id_kontrakan',
             'nama',
             'deskripsi',
+            'alamat',
+            'fasilitas',
             [
                 'label'=>'Foto',
                 'format'=>'raw',

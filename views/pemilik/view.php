@@ -32,7 +32,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'id_pemilik',
             'username',
             'password',
+            'email',
             'nama_lengkap',
+            'no_kk',
             'alamat',
             [
                 'label'=>'Foto',
