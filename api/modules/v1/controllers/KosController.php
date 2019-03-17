@@ -59,7 +59,7 @@ class KosController extends Controller
 
   /*
 	GET
-	Fungsi untuk mendapatkan data kos di filter by id_kos
+	Fungsi untuk mendapatkan detail data kos di filter by id_kos
 	*/
   public function actionById ($id_kos){
     Yii::$app->response->format = Response::FORMAT_JSON;
@@ -101,7 +101,6 @@ class KosController extends Controller
       $foto = $data['foto'];
       $foto_2 = $data['foto_2'];
       $foto_3 = $data['foto_3'];
-      // $waktu_post = $data['waktu_post'];
       $id_pemilik = $data['id_pemilik'];
       $latitude = $data['latitude'];
       $longitude = $data['longitude'];
@@ -121,7 +120,6 @@ class KosController extends Controller
       $kos->foto= $foto;
       $kos->foto_2= $foto_2;
       $kos->foto_3= $foto_3;
-      // $kos->waktu_post= $waktu_post;
       $kos->id_pemilik= $id_pemilik;
       $kos->latitude= $latitude;
       $kos->longitude= $longitude;
@@ -164,14 +162,12 @@ class KosController extends Controller
       $alamat = $data['alamat'];
       $fasilitas = $data['fasilitas'];
       $foto = $data['foto'];
-      $waktu_post = $data['waktu_post'];
+      $foto_2 = $data['foto_2'];
+      $foto_3 = $data['foto_3'];
       $id_pemilik = $data['id_pemilik'];
       $latitude = $data['latitude'];
       $longitude = $data['longitude'];
-      $altitude = $data['altitude'];
       $harga = $data['harga'];
-      $rating = $data['rating'];
-      $status = $data['status'];
       $stok_kamar = $data['stok_kamar'];
       $jenis_kos = $data['jenis_kos'];
 
@@ -186,14 +182,12 @@ class KosController extends Controller
         $kos->alamat= $alamat;
         $kos->fasilitas= $fasilitas;
         $kos->foto= $foto;
-        $kos->waktu_post= $waktu_post;
+        $kos->foto_2= $foto_2;
+        $kos->foto_3= $foto_3;
         $kos->id_pemilik= $id_pemilik;
         $kos->latitude= $latitude;
         $kos->longitude= $longitude;
-        $kos->altitude= $altitude;
         $kos->harga= $harga;
-        $kos->rating= $rating;
-        $kos->status= $status;
         $kos->stok_kamar= $stok_kamar;
         $kos->jenis_kos= $jenis_kos;
 
@@ -263,7 +257,7 @@ class KosController extends Controller
   DELETE
   Fungsi untuk menghapus kos
   */
-    public function actionDelete(){
+    public function actionDeleteKos(){
       Yii::$app->response->format = Response::FORMAT_JSON;
 
       $response = null;
@@ -282,6 +276,7 @@ class KosController extends Controller
                             //jika data berhasil dihapus
                             $response['code'] = 1;
                             $response['message'] = "Data Kos Berhasil Dihapus";
+                            $response['data'] = $kos;
                           }else {
                             // code...
                             $response['code'] = 0;

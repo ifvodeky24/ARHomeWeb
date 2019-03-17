@@ -65,10 +65,6 @@ class AdminController extends Controller
 		if (Yii::$app->request->isPost){
 			$data = Yii::$app->request->Post();
 
-      // echo "<pre>";
-      // var_dump($data);
-      // exit();
-
 			$username = $data['username'];
 			$password = $data['password'];
 
@@ -110,7 +106,6 @@ class AdminController extends Controller
       $password = $data['password'];
 
       // lakukan insert data
-
       $admin = new Admin();
       $admin->username= $username;
       $admin->password= $password;

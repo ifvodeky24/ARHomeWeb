@@ -125,7 +125,7 @@ class KontrakanController extends Controller
 
 	/*
 	GET
-	Fungsi untuk mendapatkan data kontrakan di filter by id_kontrakan dan di inner join dengan tb_pemilik
+	Fungsi untuk mendapatkan data detail kontrakan di filter by id_kontrakan dan di inner join dengan tb_pemilik
 	*/
   public function actionById ($id_kontrakan){
     Yii::$app->response->format = Response::FORMAT_JSON;
@@ -168,7 +168,6 @@ class KontrakanController extends Controller
       $foto = $data['foto'];
       $foto_2 = $data['foto_2'];
       $foto_3 = $data['foto_3'];
-      // $waktu_post = $data['waktu_post'];
       $id_pemilik = $data['id_pemilik'];
       $latitude = $data['latitude'];
       $longitude = $data['longitude'];
@@ -186,7 +185,6 @@ class KontrakanController extends Controller
       $kontrakan->foto= $foto;
       $kontrakan->foto_2= $foto_2;
       $kontrakan->foto_3= $foto_3;
-      // $kontrakan->waktu_post= $waktu_post;
       $kontrakan->id_pemilik= $id_pemilik;
       $kontrakan->latitude= $latitude;
       $kontrakan->longitude= $longitude;
@@ -227,15 +225,13 @@ class KontrakanController extends Controller
       $alamat = $data['alamat'];
       $fasilitas = $data['fasilitas'];
       $foto = $data['foto'];
-      $waktu_post = $data['waktu_post'];
+      $foto_2 = $data['foto_2'];
+      $foto_3 = $data['foto_3'];
       $id_pemilik = $data['id_pemilik'];
       $latitude = $data['latitude'];
       $longitude = $data['longitude'];
-      $altitude = $data['altitude'];
       $harga = $data['harga'];
-      $rating = $data['rating'];
-      $status = $data['status'];
-
+    
       $kontrakan = Kontrakan::find()
                       ->where(['id_kontrakan' => $id_kontrakan])
                       ->one();
@@ -247,14 +243,12 @@ class KontrakanController extends Controller
         $kontrakan->alamat= $alamat;
         $kontrakan->fasilitas= $fasilitas;
         $kontrakan->foto= $foto;
-        $kontrakan->waktu_post= $waktu_post;
+        $kontrakan->foto_2= $foto_2;
+        $kontrakan->foto_3= $foto_3;
         $kontrakan->id_pemilik= $id_pemilik;
         $kontrakan->latitude= $latitude;
         $kontrakan->longitude= $longitude;
-        $kontrakan->altitude= $altitude;
         $kontrakan->harga= $harga;
-        $kontrakan->rating= $rating;
-        $kontrakan->status= $status;
 
         if ($kontrakan->update(false)) {
           // jika data berhasil diupdate
@@ -278,7 +272,7 @@ class KontrakanController extends Controller
 
 	/*
   UPDATE
-  Fungsi untuk update data kontrakan tidak aktif menjadi tersedia
+  Fungsi untuk update data kontrakan dari tidak aktif menjadi tersedia
   */
   public function actionUpdateKontrakanTersedia() {
     Yii::$app->response->format = Response::FORMAT_JSON;
@@ -322,7 +316,7 @@ class KontrakanController extends Controller
   DELETE
   Fungsi untuk menghapus kontrakan
   */
-    public function actionDelete(){
+    public function actionDeleteKontrakan(){
       Yii::$app->response->format = Response::FORMAT_JSON;
 
       $response = null;
@@ -341,6 +335,7 @@ class KontrakanController extends Controller
                             //jika data berhasil dihapus
                             $response['code'] = 1;
                             $response['message'] = "Data Kontrakan Berhasil Dihapus";
+                            $response['data'] = $kontrakan;
                           }else {
                             // code...
                             $response['code'] = 0;

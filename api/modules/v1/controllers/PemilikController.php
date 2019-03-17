@@ -31,7 +31,7 @@ class PemilikController extends Controller
 
   /*
 	GET
-	Fungsi untuk mendapatkan data pemilik filter by id_pemilik
+	Fungsi untuk mendapatkan detail data pemilik filter by id_pemilik
 	*/
   public function actionById ($id_pemilik){
     Yii::$app->response->format = Response::FORMAT_JSON;
@@ -61,10 +61,6 @@ class PemilikController extends Controller
 
 		if (Yii::$app->request->isPost){
 			$data = Yii::$app->request->Post();
-
-      // echo "<pre>";
-      // var_dump($data);
-      // exit();
 
 			$username = $data['username'];
 			$password = $data['password'];
@@ -113,7 +109,6 @@ class PemilikController extends Controller
       $no_handphone = $data['no_handphone'];
 
       // lakukan insert data
-
       $pemilik = new Pemilik();
       $pemilik->username= $username;
       $pemilik->password= $password;
@@ -199,7 +194,7 @@ class PemilikController extends Controller
   DELETE
   Fungsi untuk delete data pemilik
   */
-    public function actionDelete(){
+    public function actionDeletePemilik(){
       Yii::$app->response->format = Response::FORMAT_JSON;
 
       $response = null;

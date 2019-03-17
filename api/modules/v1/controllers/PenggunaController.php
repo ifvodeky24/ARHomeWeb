@@ -63,10 +63,6 @@ class PenggunaController extends Controller
 		if (Yii::$app->request->isPost){
 			$data = Yii::$app->request->Post();
 
-      // echo "<pre>";
-      // var_dump($data);
-      // exit();
-
 			$username = $data['username'];
 			$password = $data['password'];
 
@@ -196,7 +192,7 @@ class PenggunaController extends Controller
 DELETE
 Fungsi untuk delete sebagai Pengguna
 */
-  public function actionDelete(){
+  public function actionDeletePengguna(){
     Yii::$app->response->format = Response::FORMAT_JSON;
 
     $response = null;
