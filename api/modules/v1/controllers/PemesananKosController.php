@@ -44,8 +44,8 @@ class PemesananKosController extends Controller
     if (Yii::$app->request->isGet) {
       
       $sql = "SELECT tb_pemesanan_kos.id_pemesanan_kos, tb_pemesanan_kos.status, tb_pemesanan_kos.review, tb_pemesanan_kos.rating,
-              dt_kos.nama as nama_kos, dt_kos.foto as foto_kos, dt_kos.harga,
-              tb_pemilik.nama_lengkap as nama_lengkap_pemilik, tb_pemilik.no_handphone as no_handphone_pemilik,
+              dt_kos.nama as nama_kos, dt_kos.foto as foto_kos, dt_kos.harga, dt_kos.stok_kamar as stok_kamar_kos, dt_kos.jenis_kos, dt_kos.alamat as alamat_kos,
+              tb_pemilik.id_pemilik, tb_pemilik.nama_lengkap as nama_lengkap_pemilik, tb_pemilik.no_handphone as no_handphone_pemilik, tb_pemilik.foto as foto_pemilik, 
               tb_pengguna.id_pengguna, tb_pengguna.nama_lengkap as nama_lengkap_pengguna,
               tb_pengguna.no_handphone as no_handphone_pengguna, tb_pengguna.foto as foto_pengguna
               FROM tb_pemesanan_kos INNER JOIN dt_kos, tb_pemilik, tb_pengguna
@@ -71,8 +71,8 @@ class PemesananKosController extends Controller
     if (Yii::$app->request->isGet) {
       // code...
       $sql = "SELECT tb_pemesanan_kos.id_pemesanan_kos, tb_pemesanan_kos.status, tb_pemesanan_kos.review, tb_pemesanan_kos.rating,
-							dt_kos.nama as nama_kos, dt_kos.foto as foto_kos, dt_kos.harga,
-							tb_pemilik.nama_lengkap as nama_lengkap_pemilik, tb_pemilik.no_handphone as no_handphone_pemilik,
+							dt_kos.nama as nama_kos, dt_kos.foto as foto_kos, dt_kos.harga, dt_kos.stok_kamar as stok_kamar_kos, dt_kos.jenis_kos, dt_kos.alamat as alamat_kos,
+							tb_pemilik.id_pemilik, tb_pemilik.nama_lengkap as nama_lengkap_pemilik, tb_pemilik.no_handphone as no_handphone_pemilik, tb_pemilik.foto as foto_pemilik, 
 							tb_pengguna.id_pengguna, tb_pengguna.nama_lengkap as nama_lengkap_pengguna,
 							tb_pengguna.no_handphone as no_handphone_pengguna, tb_pengguna.foto as foto_pengguna
 							FROM tb_pemesanan_kos INNER JOIN dt_kos, tb_pemilik, tb_pengguna
@@ -102,10 +102,10 @@ class PemesananKosController extends Controller
     if (Yii::$app->request->isGet) {
       // code...
       $sql = "SELECT tb_pemesanan_kos.id_pemesanan_kos, tb_pemesanan_kos.status, tb_pemesanan_kos.review, tb_pemesanan_kos.rating,
-							dt_kos.nama as nama_kos, dt_kos.foto as foto_kos, dt_kos.harga,
-							tb_pemilik.nama_lengkap as nama_lengkap_pemilik, tb_pemilik.no_handphone as no_handphone_pemilik,
-							tb_pengguna.id_pengguna, tb_pengguna.nama_lengkap as nama_lengkap_pengguna,
-							tb_pengguna.no_handphone as no_handphone_pengguna, tb_pengguna.foto as foto_pengguna
+              dt_kos.nama as nama_kos, dt_kos.foto as foto_kos, dt_kos.harga, dt_kos.stok_kamar as stok_kamar_kos, dt_kos.jenis_kos, dt_kos.alamat as alamat_kos,
+              tb_pemilik.id_pemilik, tb_pemilik.nama_lengkap as nama_lengkap_pemilik, tb_pemilik.no_handphone as no_handphone_pemilik, tb_pemilik.foto as foto_pemilik, 
+              tb_pengguna.id_pengguna, tb_pengguna.nama_lengkap as nama_lengkap_pengguna,
+              tb_pengguna.no_handphone as no_handphone_pengguna, tb_pengguna.foto as foto_pengguna
 							FROM tb_pemesanan_kos INNER JOIN dt_kos, tb_pemilik, tb_pengguna
 							WHERE tb_pemesanan_kos.id_kos = dt_kos.id_kos
 							AND tb_pemesanan_kos.id_pengguna = tb_pengguna.id_pengguna

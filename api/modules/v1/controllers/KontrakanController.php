@@ -42,7 +42,7 @@ class KontrakanController extends Controller
        }
      
       
-     
+  
        // Header File XML
        header("Content-type: text/xml");
      
@@ -96,6 +96,30 @@ class KontrakanController extends Controller
 
 		return $response;
 	}
+
+  /*
+  GET
+  Fungsi get all dengan parameter
+  */
+  public function actionGetAllWithParameter($harga_min, $harga_max, $rating){
+    Yii::$app->response->format = Response::FORMAT_JSON;
+
+    $response = null;
+
+    if (Yii::$app->request->isGet){
+
+      // select * from tb_kontrakan
+      $kontrakan = Kontrakan::find()
+      ->where(['status'=>'tersedia'])
+      ->andwhere(['between', 'harga', $harga_min, $harga_max])
+      ->andwhere(['rating' => $rating]) 
+      ->all();
+
+      $response['master'] = $kontrakan;
+    }
+
+    return $response;
+  }
 
 	/*
 	GET

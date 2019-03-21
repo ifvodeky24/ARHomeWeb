@@ -32,6 +32,30 @@ class KosController extends Controller
 	}
 
   /*
+  GET
+  Fungsi get all dengan parameter
+  */
+  public function actionGetAllWithParameter($harga_min, $harga_max, $rating){
+    Yii::$app->response->format = Response::FORMAT_JSON;
+
+    $response = null;
+
+    if (Yii::$app->request->isGet){
+
+      // select * from tb_kos
+      $kos = Kos::find()
+      ->where(['status'=>'tersedia'])
+      ->andwhere(['between', 'harga', $harga_min, $harga_max])
+      ->andwhere(['rating' => $rating]) 
+      ->all();
+
+      $response['master'] = $kos;
+    }
+
+    return $response;
+  }
+
+  /*
 	GET
 	Fungsi untuk mendapatkan semua data-data kos yang terdekat dari lokasi saat ini
 	*/

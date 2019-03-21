@@ -43,8 +43,8 @@ class PemesananKontrakanController extends Controller
     if (Yii::$app->request->isGet) {
 
     	$sql = "SELECT tb_pemesanan_kontrakan.id_pemesanan_kontrakan, tb_pemesanan_kontrakan.status, tb_pemesanan_kontrakan.review, tb_pemesanan_kontrakan.rating,
-              dt_kontrakan.nama as nama_kontrakan, dt_kontrakan.foto as foto_kontrakan, dt_kontrakan.harga,
-              tb_pemilik.nama_lengkap as nama_lengkap_pemilik, tb_pemilik.no_handphone as no_handphone_pemilik,
+              dt_kontrakan.nama as nama_kontrakan, dt_kontrakan.foto as foto_kontrakan, dt_kontrakan.harga, dt_kontrakan.alamat as alamat_kontrakan,
+              tb_pemilik.id_pemilik, tb_pemilik.nama_lengkap as nama_lengkap_pemilik, tb_pemilik.no_handphone as no_handphone_pemilik, tb_pemilik.foto as foto_pemilik, 
               tb_pengguna.id_pengguna, tb_pengguna.nama_lengkap as nama_lengkap_pengguna,
               tb_pengguna.no_handphone as no_handphone_pengguna, tb_pengguna.foto as foto_pengguna
               FROM tb_pemesanan_kontrakan INNER JOIN dt_kontrakan, tb_pemilik, tb_pengguna
@@ -69,18 +69,18 @@ class PemesananKontrakanController extends Controller
     if (Yii::$app->request->isGet) {
       // code...
       $sql = "SELECT tb_pemesanan_kontrakan.id_pemesanan_kontrakan, tb_pemesanan_kontrakan.status, tb_pemesanan_kontrakan.review, tb_pemesanan_kontrakan.rating,
-							dt_kontrakan.nama as nama_kontrakan, dt_kontrakan.foto as foto_kontrakan, dt_kontrakan.harga,
-							tb_pemilik.nama_lengkap as nama_lengkap_pemilik, tb_pemilik.no_handphone as no_handphone_pemilik,
-							tb_pengguna.id_pengguna, tb_pengguna.nama_lengkap as nama_lengkap_pengguna,
-							tb_pengguna.no_handphone as no_handphone_pengguna, tb_pengguna.foto as foto_pengguna
-							FROM tb_pemesanan_kontrakan INNER JOIN dt_kontrakan, tb_pemilik, tb_pengguna
-							WHERE tb_pemesanan_kontrakan.id_kontrakan = dt_kontrakan.id_kontrakan
-							AND dt_kontrakan.id_pemilik = tb_pemilik.id_pemilik
-							AND tb_pemilik.id_pemilik = '$id_pemilik'
-           
-							AND tb_pemesanan_kontrakan.id_pengguna = tb_pengguna.id_pengguna
+              dt_kontrakan.nama as nama_kontrakan, dt_kontrakan.foto as foto_kontrakan, dt_kontrakan.harga, dt_kontrakan.alamat as alamat_kontrakan,
+              tb_pemilik.id_pemilik, tb_pemilik.nama_lengkap as nama_lengkap_pemilik, tb_pemilik.no_handphone as no_handphone_pemilik, tb_pemilik.foto as foto_pemilik, 
+              tb_pengguna.id_pengguna, tb_pengguna.nama_lengkap as nama_lengkap_pengguna,
+              tb_pengguna.no_handphone as no_handphone_pengguna, tb_pengguna.foto as foto_pengguna
+				FROM tb_pemesanan_kontrakan INNER JOIN dt_kontrakan, tb_pemilik, tb_pengguna
+				WHERE tb_pemesanan_kontrakan.id_kontrakan = dt_kontrakan.id_kontrakan
+				AND dt_kontrakan.id_pemilik = tb_pemilik.id_pemilik
+				AND tb_pemilik.id_pemilik = '$id_pemilik'
 
-							GROUP BY tb_pemesanan_kontrakan.id_pemesanan_kontrakan";
+				AND tb_pemesanan_kontrakan.id_pengguna = tb_pengguna.id_pengguna
+
+				GROUP BY tb_pemesanan_kontrakan.id_pemesanan_kontrakan";
 
               $response['master'] = Yii::$app->db->createCommand($sql)->queryAll();;
     }
@@ -99,16 +99,16 @@ class PemesananKontrakanController extends Controller
     if (Yii::$app->request->isGet) {
       // code...
       $sql = "SELECT tb_pemesanan_kontrakan.id_pemesanan_kontrakan, tb_pemesanan_kontrakan.status, tb_pemesanan_kontrakan.review, tb_pemesanan_kontrakan.rating,
-							dt_kontrakan.nama as nama_kontrakan, dt_kontrakan.foto as foto_kontrakan, dt_kontrakan.harga,
-							tb_pemilik.nama_lengkap as nama_lengkap_pemilik, tb_pemilik.no_handphone as no_handphone_pemilik,
-							tb_pengguna.id_pengguna, tb_pengguna.nama_lengkap as nama_lengkap_pengguna,
-							tb_pengguna.no_handphone as no_handphone_pengguna, tb_pengguna.foto as foto_pengguna
-							FROM tb_pemesanan_kontrakan INNER JOIN dt_kontrakan, tb_pemilik, tb_pengguna
-							WHERE tb_pemesanan_kontrakan.id_kontrakan = dt_kontrakan.id_kontrakan
-							AND tb_pemesanan_kontrakan.id_pengguna = tb_pengguna.id_pengguna
-							AND tb_pengguna.id_pengguna = '$id_pengguna' 
+              dt_kontrakan.nama as nama_kontrakan, dt_kontrakan.foto as foto_kontrakan, dt_kontrakan.harga, dt_kontrakan.alamat as alamat_kontrakan,
+              tb_pemilik.id_pemilik, tb_pemilik.nama_lengkap as nama_lengkap_pemilik, tb_pemilik.no_handphone as no_handphone_pemilik, tb_pemilik.foto as foto_pemilik, 
+              tb_pengguna.id_pengguna, tb_pengguna.nama_lengkap as nama_lengkap_pengguna,
+              tb_pengguna.no_handphone as no_handphone_pengguna, tb_pengguna.foto as foto_pengguna
+				FROM tb_pemesanan_kontrakan INNER JOIN dt_kontrakan, tb_pemilik, tb_pengguna
+				WHERE tb_pemesanan_kontrakan.id_kontrakan = dt_kontrakan.id_kontrakan
+				AND tb_pemesanan_kontrakan.id_pengguna = tb_pengguna.id_pengguna
+				AND tb_pengguna.id_pengguna = '$id_pengguna' 
 
-							GROUP BY tb_pemesanan_kontrakan.id_pemesanan_kontrakan";
+				GROUP BY tb_pemesanan_kontrakan.id_pemesanan_kontrakan";
 
               $response['master'] = Yii::$app->db->createCommand($sql)->queryAll();;
     }
