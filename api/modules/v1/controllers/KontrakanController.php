@@ -99,6 +99,29 @@ class KontrakanController extends Controller
 
   /*
   GET
+  Fungsi untuk mendapatkan semua rekomendasi kontrakan
+  */
+  public function actionGetAllRekomendasiKontrakan(){
+    Yii::$app->response->format = Response::FORMAT_JSON;
+
+    $response = null;
+
+    if (Yii::$app->request->isGet){
+
+      // select * from tb_kontrakan
+      $kontrakan = Kontrakan::find()
+      ->where(['status'=>'tersedia'])
+      ->orderBy(['rating' => SORT_DESC])
+      ->all();
+
+      $response['master'] = $kontrakan;
+    }
+
+    return $response;
+  }
+
+  /*
+  GET
   Fungsi get all dengan parameter
   */
   public function actionGetAllWithParameter($harga_min, $harga_max, $rating){

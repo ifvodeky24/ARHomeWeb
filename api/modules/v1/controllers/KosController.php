@@ -33,6 +33,29 @@ class KosController extends Controller
 
   /*
   GET
+  Fungsi untuk mendapatkan semua rekomendasi  kos
+  */
+  public function actionGetAllRekomendasiKos(){
+    Yii::$app->response->format = Response::FORMAT_JSON;
+
+    $response = null;
+
+    if (Yii::$app->request->isGet){
+
+      // select * from tb_kos
+      $kos = Kos::find()->
+         where(['status'=>'tersedia'])
+         ->orderBy(['rating' => SORT_DESC])
+         ->all();
+
+      $response['master'] = $kos;
+    }
+
+    return $response;
+  }
+
+  /*
+  GET
   Fungsi get all dengan parameter
   */
   public function actionGetAllWithParameter($harga_min, $harga_max, $rating){

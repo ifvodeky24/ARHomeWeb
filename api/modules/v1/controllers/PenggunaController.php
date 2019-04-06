@@ -225,4 +225,39 @@ Fungsi untuk delete sebagai Pengguna
       }
       return $response;
     }
+
+    /*
+  CREATE
+  Fungsi untuk register sebagai Pengguna
+  */
+  public function actionInsertGoogleSignIn(){
+    Yii::$app->response->format = Response::FORMAT_JSON;
+
+    $response = null;
+
+    if (Yii::$app->request->isPost) {
+      $data = Yii::$app->request->Post();
+      // code...
+      $email = $data['email'];
+      $foto = $data['foto'];
+
+      // lakukan insert data
+
+      $pengguna = new Pengguna();
+      $pengguna->email= $email;
+      $pengguna->foto= $foto;
+
+      if($pengguna->save(false)){
+        //jika data berhasil disimpan
+        $response['code'] = 1;
+        $response['message'] = "Insert data sign in google berhasil";
+        $response['data'] = $pengguna;
+      }else{
+        $response['code'] = 0;
+        $response['message'] = "Insert data sign in google gagal";
+        $response['data'] = null;
+      }
+    }
+      return $response;
+  }
 }
