@@ -62,14 +62,14 @@ class PemilikController extends Controller
 		if (Yii::$app->request->isPost){
 			$data = Yii::$app->request->Post();
 
-			$username = $data['username'];
+			$email = $data['email'];
 			$password = $data['password'];
 
 			// pengecekan username dan password
 			// select * from tb_pemilik where username = '' And password = ''
 
 			$pemilik = Pemilik::find()
-						->where(['username' => $username])
+						->where(['email' => $email])
 						->andWhere(['password' =>$password])
 						->one();
 
@@ -79,7 +79,7 @@ class PemilikController extends Controller
 				$response['data'] = $pemilik;
 			} else {
         $response['code'] = 0;
-				$response['message'] = "Login gagal, username password salah";
+				$response['message'] = "Login gagal, email atau password salah";
 				$response['data'] = null;
 			}
 		}
@@ -147,12 +147,12 @@ class PemilikController extends Controller
 
       $id_pemilik= $data['id_pemilik'];
       $username = $data['username'];
-      $password = $data['password'];
+      // $password = $data['password'];
       $email = $data['email'];
       $nama_lengkap = $data['nama_lengkap'];
       $no_kk = $data['no_kk'];
       $alamat = $data['alamat'];
-      $foto = $data['foto'];
+      // $foto = $data['foto'];
       $no_handphone = $data['no_handphone'];
 
       $pemilik = Pemilik::find()
@@ -162,12 +162,12 @@ class PemilikController extends Controller
       if (isset($pemilik)) {
         // code...
         $pemilik->username= $username;
-        $pemilik->password= $password;
+        // $pemilik->password= $password;
         $pemilik->email= $email;
         $pemilik->nama_lengkap= $nama_lengkap;
         $pemilik->no_kk= $no_kk;
         $pemilik->alamat= $alamat;
-        $pemilik->foto= $foto;
+        // $pemilik->foto= $foto;
         $pemilik->no_handphone= $no_handphone;
 
         if ($pemilik->update(false)) {
@@ -190,6 +190,93 @@ class PemilikController extends Controller
 
   }
 
+   /*
+  UPDATE
+  Fungsi untuk upload Foto Pemilik
+  */
+  public function actionUploadFotoPemilik() {
+    Yii::$app->response->format = Response::FORMAT_JSON;
+
+    $response = null;
+
+    if (Yii::$app->request->isPost) {
+      $data = Yii::$app->request->Post();
+
+      $id_pemilik= $data['id_pemilik'];
+      $foto = $data['foto'];
+      
+      $pemilik = Pemilik::find()
+                      ->where(['id_pemilik' => $id_pemilik])
+                      ->one();
+
+      if (isset($pemilik)) {
+        // code...
+        $pemilik->foto= $foto;
+      
+        if ($pemilik->update(false)) {
+          // jika data berhasil diupdate
+          $response['code'] = 1;
+          $response['message'] = "Upload Foto berhasil";
+          $response['data'] = $pemilik;
+        }else {
+          $response['code'] = 0;
+          $response['message'] = "Upload Foto gagal";
+          $response['data'] = null;
+        }
+      }else {
+        $response['code'] = 0;
+        $response['message'] = "Data tidak ditemukan";
+        $response['data'] = null;
+      }
+    }
+    return $response;
+
+  }
+
+   /*
+  UPDATE
+  Fungsi untuk update password Pemilik
+  */
+  public function actionUpdatePasswordPemilik() {
+    Yii::$app->response->format = Response::FORMAT_JSON;
+
+    $response = null;
+
+    if (Yii::$app->request->isPost) {
+      $data = Yii::$app->request->Post();
+
+      $id_pemilik= $data['id_pemilik'];
+      $password = $data['password'];
+      
+      $pemilik = Pemilik::find()
+                      ->where(['id_pemilik' => $id_pemilik])
+                      ->one();
+
+      if (isset($pemilik)) {
+        // code...
+        $pemilik->password= $password;
+      
+        if ($pemilik->update(false)) {
+          // jika data berhasil diupdate
+          $response['code'] = 1;
+          $response['message'] = "Password berhasil diubah";
+          $response['data'] = $pemilik;
+        }else {
+          $response['code'] = 0;
+          $response['message'] = "Password gagal diubah";
+          $response['data'] = null;
+        }
+      }else {
+        $response['code'] = 0;
+        $response['message'] = "Data tidak ditemukan";
+        $response['data'] = null;
+      }
+    }
+    return $response;
+
+  }
+
+  
   /*
   DELETE
   Fungsi untuk delete data pemilik

@@ -315,6 +315,8 @@ return $response;
 		                    $response['message'] = "Rating dan Review Kontrakan berhasil ditambah";
 		                    $response['data'] = $pemesanan_kontrakan;
 
+          //kalkulasikan total rating kontrakan
+                        
 		        }else {
 		          $response['code'] = 0;
 		  				$response['message'] = "Rating dan Review Kontrakan gagal ditambah";
@@ -328,6 +330,30 @@ return $response;
 	    }
 	    return $response;
 
+  }
+
+  public function actionCheckUnratingKontrakan($id_pengguna){
+    Yii::$app->response->format = Response::FORMAT_JSON;
+
+    $response = null;
+
+    if (Yii::$app->request->isGet) {
+      $pemesananKontrakan = PemesananKontrakan::find()
+      ->where(['id_pengguna' => $id_pengguna, 'status' => 'Selesai', 'rating' => 0])
+      ->one();
+
+      if ($pemesananKontrakan != null) {
+        $response['code'] = 1;
+        $response['message'] = "Ada review dan rating belum ditambahkan";
+        $response['data']['id_pemesanan_kontrakan'] = $pemesananKontrakan->id_pemesanan_kontrakan;
+        $response['data']['nama_kontrakan'] = $pemesananKontrakan->kontrakan->nama; 
+      }else{
+        $response['code'] = 0;
+        $response['message'] = "Tidak Ada review dan rating belum ditambahkan";
+        $response['data'] = null;
+      }
+    }
+    return $response;
   }
 
 	/*

@@ -326,8 +326,28 @@ class PemesananKosController extends Controller
         $pemesanan_kos->rating= $rating;
 
         if ($pemesanan_kos->update(false)) {
+          //update rating kos 
+          //hitung total rating pemesanan
+          $total_rating = PemesananKos::find()
+                          ->where(['id_kos' => $pemesanan_kos->id_kos])
+                          ->sum('rating');
+
+                          $jumlah_pemesanan = PemesananKos::find()
+                          ->where(['id_kos' => $pemesanan_kos->id_kos])
+                          ->count();
+
+                          $rating_kos = $total_rating/$jumlah_pemesanan;
+
+                          $kos = Kos::findOne($pemesanan_kos->id_kos);
+
+                          $kos->rating = $rating_kos;
+
+                          if ($kos->save(false)) {
+                            $response['message'] = "Rating Total Kos berhasil diupdate. ";
+                          }
+
 					$response['code'] = 1;
-                    $response['message'] = "Rating dan Review Kos berhasil ditambah";
+                    $response['message'] = $response['message']. "Rating dan Review Kos berhasil ditambah";
                     $response['data'] = $pemesanan_kos;
 
         }else {
@@ -343,6 +363,30 @@ class PemesananKosController extends Controller
     }
     return $response;
 
+  }
+
+  public function actionCheckUnratingKos($id_pengguna){
+    Yii::$app->response->format = Response::FORMAT_JSON;
+
+    $response = null;
+
+    if (Yii::$app->request->isGet) {
+      $pemesananKos = PemesananKos::find()
+      ->where(['id_pengguna' => $id_pengguna, 'status' => 'Selesai', 'rating' => 0])
+      ->one();
+
+      if ($pemesananKos != null) {
+        $response['code'] = 1;
+        $response['message'] = "Ada review dan rating belum ditambahkan";
+        $response['data']['id_pemesanan_kos'] = $pemesananKos->id_pemesanan_kos;
+        $response['data']['nama_kos'] = $pemesananKos->kos->nama; 
+      }else{
+        $response['code'] = 0;
+        $response['message'] = "Tidak Ada review dan rating belum ditambahkan";
+        $response['data'] = null;
+      }
+    }
+    return $response;
   }
 
   /*

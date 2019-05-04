@@ -17,8 +17,8 @@ use Yii;
  * @property string $foto
  * @property string $no_handphone
  *
- * @property Kontrakan[] $Kontrakan
- * @property Kos[] $Kos
+ * @property DtKontrakan[] $dtKontrakans
+ * @property DtKos[] $dtKos
  */
 class Pemilik extends \yii\db\ActiveRecord
 {
@@ -36,7 +36,7 @@ class Pemilik extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['username', 'password', 'email', 'nama_lengkap', 'alamat', 'foto', 'no_handphone'], 'required'],
+            [['username', 'password', 'email', 'nama_lengkap', 'alamat', 'foto','no_handphone'], 'required'],
             [['no_kk'], 'integer'],
             [['username', 'email', 'alamat', 'foto'], 'string', 'max' => 30],
             [['password'], 'string', 'max' => 255],
@@ -68,7 +68,7 @@ class Pemilik extends \yii\db\ActiveRecord
      */
     public function getKontrakan()
     {
-        return $this->hasMany(Kontrakan::className(), ['id_pemilik' => 'id_pemilik']);
+        return $this->hasMany(DtKontrakan::className(), ['id_pemilik' => 'id_pemilik']);
     }
 
     /**
@@ -76,6 +76,6 @@ class Pemilik extends \yii\db\ActiveRecord
      */
     public function getKos()
     {
-        return $this->hasMany(Kos::className(), ['id_pemilik' => 'id_pemilik']);
+        return $this->hasMany(DtKos::className(), ['id_pemilik' => 'id_pemilik']);
     }
 }

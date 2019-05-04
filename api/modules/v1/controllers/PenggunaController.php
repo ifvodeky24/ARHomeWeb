@@ -63,14 +63,14 @@ class PenggunaController extends Controller
 		if (Yii::$app->request->isPost){
 			$data = Yii::$app->request->Post();
 
-			$username = $data['username'];
+			$email = $data['email'];
 			$password = $data['password'];
 
 			// pengecekan username dan password
 			// select * from tb_pemilik where username = '' And password = ''
 
 			$pengguna = Pengguna::find()
-						->where(['username' => $username])
+						->where(['email' => $email])
 						->andWhere(['password' =>$password])
 						->one();
 
@@ -147,11 +147,11 @@ class PenggunaController extends Controller
 
       $id_pengguna= $data['id_pengguna'];
       $username = $data['username'];
-      $password = $data['password'];
+      // $password = $data['password'];
       $email = $data['email'];
       $nama_lengkap = $data['nama_lengkap'];
       $alamat = $data['alamat'];
-      $foto = $data['foto'];
+      // $foto = $data['foto'];
       $no_handphone = $data['no_handphone'];
 
       $pengguna = Pengguna::find()
@@ -161,11 +161,11 @@ class PenggunaController extends Controller
       if (isset($pengguna)) {
         // code...
         $pengguna->username= $username;
-        $pengguna->password= $password;
+        // $pengguna->password= $password;
         $pengguna->email= $email;
         $pengguna->nama_lengkap= $nama_lengkap;
         $pengguna->alamat= $alamat;
-        $pengguna->foto= $foto;
+        // $pengguna->foto= $foto;
         $pengguna->no_handphone= $no_handphone;
 
         if ($pengguna->update(false)) {
@@ -177,6 +177,104 @@ class PenggunaController extends Controller
           $response['code'] = 0;
   				$response['message'] = "Update gagal";
   				$response['data'] = null;
+        }
+      }else {
+        $response['code'] = 0;
+        $response['message'] = "Data tidak ditemukan";
+        $response['data'] = null;
+      }
+    }
+    return $response;
+
+}
+
+/*
+  UPDATE
+  Fungsi untuk upload foto Pengguna
+  */
+  public function actionUploadFotoPengguna() {
+    Yii::$app->response->format = Response::FORMAT_JSON;
+
+    $response = null;
+
+    if (Yii::$app->request->isPost) {
+      $data = Yii::$app->request->Post();
+
+      $id_pengguna= $data['id_pengguna'];
+      // $username = $data['username'];
+      // $password = $data['password'];
+      // $email = $data['email'];
+      // $nama_lengkap = $data['nama_lengkap'];
+      // $alamat = $data['alamat'];
+      $foto = $data['foto'];
+      // $no_handphone = $data['no_handphone'];
+
+      $pengguna = Pengguna::find()
+                      ->where(['id_pengguna' => $id_pengguna])
+                      ->one();
+
+      if (isset($pengguna)) {
+        // code...
+        // $pengguna->username= $username;
+        // $pengguna->password= $password;
+        // $pengguna->email= $email;
+        // $pengguna->nama_lengkap= $nama_lengkap;
+        // $pengguna->alamat= $alamat;
+        $pengguna->foto= $foto;
+        // $pengguna->no_handphone= $no_handphone;
+
+        if ($pengguna->update(false)) {
+          // jika data berhasil diupdate
+          $response['code'] = 1;
+          $response['message'] = "Update Foto berhasil";
+          $response['data'] = $pengguna;
+        }else {
+          $response['code'] = 0;
+          $response['message'] = "Update Foto gagal";
+          $response['data'] = null;
+        }
+      }else {
+        $response['code'] = 0;
+        $response['message'] = "Data tidak ditemukan";
+        $response['data'] = null;
+      }
+    }
+    return $response;
+
+}
+
+/*
+  UPDATE
+  Fungsi untuk update password Pengguna
+  */
+  public function actionUpdatePasswordPengguna() {
+    Yii::$app->response->format = Response::FORMAT_JSON;
+
+    $response = null;
+
+    if (Yii::$app->request->isPost) {
+      $data = Yii::$app->request->Post();
+
+      $id_pengguna= $data['id_pengguna'];
+      $password = $data['password'];
+    
+      $pengguna = Pengguna::find()
+                      ->where(['id_pengguna' => $id_pengguna])
+                      ->one();
+
+      if (isset($pengguna)) {
+        // code...
+        $pengguna->password= $password;
+        
+        if ($pengguna->update(false)) {
+          // jika data berhasil diupdate
+          $response['code'] = 1;
+          $response['message'] = "Password berhasil diubah";
+          $response['data'] = $pengguna;
+        }else {
+          $response['code'] = 0;
+          $response['message'] = "Password gagal diubah";
+          $response['data'] = null;
         }
       }else {
         $response['code'] = 0;
