@@ -116,7 +116,7 @@ class PemilikController extends Controller
       $pemilik->nama_lengkap= $nama_lengkap;
       $pemilik->no_kk= $no_kk;
       $pemilik->alamat= $alamat;
-      $pemilik->foto= $foto;
+      $pemilik->foto = $foto;
       $pemilik->no_handphone= $no_handphone;
 
       if($pemilik->save(false)){
@@ -190,7 +190,7 @@ class PemilikController extends Controller
 
   }
 
-   /*
+  /*
   UPDATE
   Fungsi untuk upload Foto Pemilik
   */

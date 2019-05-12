@@ -5,8 +5,6 @@
 		// Where the file is going to be placed
 		$target_path = "../../web/files/kontrakan/";
 		
-		
-	 
 		/* Add the original filename to our target path.
 		Result is "uploads/filename.extension" */
 		echo "uploading started";

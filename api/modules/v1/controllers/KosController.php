@@ -33,6 +33,30 @@ class KosController extends Controller
 
   /*
   GET
+  Fungsi untuk mendapatkan data kos filter by id_pemilik
+  */
+  public function actionGetAllByPemilikKos($id_pemilik){
+    Yii::$app->response->format = Response::FORMAT_JSON;
+
+    $response = null;
+
+    if (Yii::$app->request->isGet) {
+      // code...
+      $sql = "SELECT dt_kos.id_kos, dt_kos.nama as nama_kos, dt_kos.deskripsi as deskripsi_kos, dt_kos.foto as foto_kos, dt_kos.foto_2 as foto_kos_2, dt_kos.foto_3 as foto_kos_3, dt_kos.waktu_post, dt_kos.latitude, dt_kos.longitude, dt_kos.altitude, dt_kos.rating, dt_kos.status, dt_kos.harga, dt_kos.alamat as alamat_kos, dt_kos.jenis_kos, dt_kos.stok_kamar,
+
+  tb_pemilik.id_pemilik, tb_pemilik.nama_lengkap as nama_lengkap_pemilik, tb_pemilik.email, tb_pemilik.no_kk, tb_pemilik.no_handphone as no_handphone_pemilik, tb_pemilik.foto as foto_pemilik, tb_pemilik.alamat as alamat_pemilik 
+    
+    FROM dt_kos INNER JOIN tb_pemilik 
+    WHERE dt_kos.id_pemilik = tb_pemilik.id_pemilik 
+    AND tb_pemilik.id_pemilik = '$id_pemilik'";
+
+              $response['master'] = Yii::$app->db->createCommand($sql)->queryAll();;
+    }
+    return $response;
+  }
+
+  /*
+  GET
   Fungsi untuk mendapatkan semua rekomendasi  kos
   */
   public function actionGetAllRekomendasiKos(){

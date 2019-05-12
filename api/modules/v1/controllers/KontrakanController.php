@@ -99,6 +99,29 @@ class KontrakanController extends Controller
 
   /*
   GET
+  Fungsi untuk mendapatkan data kontrakan filter by id_pemilik
+  */
+  public function actionGetAllByPemilikKontrakan($id_pemilik){
+    Yii::$app->response->format = Response::FORMAT_JSON;
+
+    $response = null;
+
+    if (Yii::$app->request->isGet) {
+      // code...
+      $sql = "SELECT dt_kontrakan.id_kontrakan, dt_kontrakan.nama as nama_kontrakan, dt_kontrakan.deskripsi as deskripsi_kontrakan, dt_kontrakan.foto as foto_kontrakan, dt_kontrakan.foto_2 as foto_kontrakan_2, dt_kontrakan.foto_3 as foto_kontrakan_3, dt_kontrakan.waktu_post, dt_kontrakan.latitude, dt_kontrakan.longitude, dt_kontrakan.altitude, dt_kontrakan.rating, dt_kontrakan.status, dt_kontrakan.harga, dt_kontrakan.alamat as alamat_kontrakan,
+            tb_pemilik.id_pemilik, tb_pemilik.nama_lengkap as nama_lengkap_pemilik, tb_pemilik.email, tb_pemilik.no_kk, tb_pemilik.no_handphone as no_handphone_pemilik, tb_pemilik.foto as foto_pemilik, tb_pemilik.alamat as alamat_pemilik
+
+        FROM dt_kontrakan INNER JOIN tb_pemilik
+        WHERE dt_kontrakan.id_pemilik = tb_pemilik.id_pemilik
+        AND tb_pemilik.id_pemilik = '$id_pemilik'";
+
+              $response['master'] = Yii::$app->db->createCommand($sql)->queryAll();;
+    }
+    return $response;
+  }
+
+  /*
+  GET
   Fungsi untuk mendapatkan semua rekomendasi kontrakan
   */
   public function actionGetAllRekomendasiKontrakan(){
